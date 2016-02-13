@@ -43,12 +43,44 @@ div {
 }
 
 .card * {
-    font-size:20px;
+    font-size: 20px;
 }
 
 #bar_top {
     height: 12%;
     box-shadow: 0 0 6px 0px;
+}
+
+#bar_top > div {
+    width: 33.3%;
+    text-align: center;
+}
+
+.top_ {
+    background-color: #9DCEFF;
+    box-shadow: 0 0 0 0;
+    z-index: 2;
+}
+
+.top_s {
+    background-color: #3399FF;
+    box-shadow: 0 0 6px 0;
+    z-index: 3;
+}
+
+.top_title {
+    display: table;
+}
+
+.top_title span {
+    font-size: 42px;
+    vertical-align: middle;
+    display: table-cell;
+    color: #007FFF;
+}
+
+.top_s span {
+    color: #FFFFFF;
 }
 
 #bar_bottom {
@@ -72,3 +104,47 @@ div {
     left: 2%;
     width: 96%;
 }
+
+.fade {
+    display: block;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color;
+}
+
+.but_green {
+    background-color: #00FF00;
+}
+
+.but_green:hover {
+    background-color: #97FF97;
+}
+
+.but_orange {
+    background-color: #FFA500;
+}
+
+.but_orange:hover {
+    background-color: #FFD17D;
+}
+
+
+.but_ok:hover {
+    background-color: #48FF00;
+}
+
+.but_ed:hover {
+    background-color: #FFB22B;
+}
+
+.but_del:hover {
+    background-color: #FF0000;
+}
+

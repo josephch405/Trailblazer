@@ -38,9 +38,9 @@ function generateCardHTML(ref) {
     text += '<div style="height:50%; border-bottom: ' + lineStyle[1] + '; box-shadow: 0px 2px 2px -2px; z-index: 3">';
     text += '<div style="text-align:center; padding-top:6%; width:80%;">' + name + '</div>';
     text += '<div style="text-align:center; width:20%; left:80%; border-left: ' + lineStyle[1] + '">';
-    text += '<div style="height:50%; border-bottom:' + lineStyle[1] + '"></div>';
-    text += '<div style="top: 50%; height:25%; border-bottom:' + lineStyle[1] + '"></div>';
-    text += '<div style="top: 75%; height:25%""></div>';
+    text += '<div class = "fade but_ok" style="height:50%; border-bottom:' + lineStyle[1] + '"></div>';
+    text += '<div class = "fade but_ed" style="top: 50%; height:25%; border-bottom:' + lineStyle[1] + '"></div>';
+    text += '<div class = "fade but_del" style="top: 75%; height:25%""></div>';
     text += '</div>';
     text += '</div>';
 
@@ -92,6 +92,13 @@ function boolToCol(ticked) {
     return colors.ORANGE;
 }
 
+function bToCClass(ticked) {
+    if (ticked) {
+        return 'but_green';
+    }
+    return 'but_orange';
+}
+
 function recurseBottomDiv(ref, layer) {
     if (typeof layer == 'undefined')
         layer = 0;
@@ -103,12 +110,15 @@ function recurseBottomDiv(ref, layer) {
         var topWidth = 100 / (ref.length - 1);
         var children = ref.slice(1);
         for (var i in children) {
-            txt += '<div style="left: ' + topWidth * i + '%; ';
-            txt += 'width:' + topWidth + '%; ';
+            txt += '<div class = "fade ';
             if(children[i] == true)
-                txt += 'background-color: ' + boolToCol(true) + "; ";
+                txt += bToCClass(true);
             else
-                txt += 'background-color: ' + boolToCol(children[i][0]) + "; ";
+                txt += bToCClass(children[i][0]);
+            txt += '"';
+            txt += ' style="left: ' + topWidth * i + '%; ';
+            txt += 'width:' + topWidth + '%; ';
+            
             if (i > 0) {
                 txt += 'border-left:' + lineStyle[0];
             }
