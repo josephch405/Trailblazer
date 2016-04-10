@@ -1,0 +1,54 @@
+scrum
+
+METAGOALS:
+A fully fledged task tracker
+- habits and fields
+	- subtasks
+- quick todo list
+- evaluation mode
+- history tracking
+- a drawing board/notebook
+
+
+SPRINT 
+
+GOALS:
+1. Tasks
+	objects
+	formatting
+	toggle and events
+2. checkbox in subview
+3. Refactor
+	html
+	css
+		less?
+	js
+	consider angular/react
+4. percentage bars
+5. suggestion view
+6. grand planning
+	mosaic
+
+
+ALEX FEATURES
+Capitalize things
+Update tooltips on name update
+
+
+
+TERMINOLOGY
+
+_________________________________________
+|										|
+|____CATEGORIES_________________________|
+|										|
+|	CARDS								|
+|										|
+|	|BOXES|								|
+|										|
+|										|
+|										|
+|										|
+|										|
+|										|
+|__DRAWER_______________________________|
