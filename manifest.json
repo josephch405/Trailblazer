@@ -15,7 +15,7 @@
         "notifications"
     ],
     "icons": {
-        "128": "icon.png"
+        "128": "img/icon.png"
     },
     "offline_enabled": true
 }

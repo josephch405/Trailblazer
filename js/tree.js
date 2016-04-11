@@ -11,7 +11,6 @@ function TreeNode(args) {
         this.name = _.has(input, 'name') ? input.name : '';
         this.checked = _.has(input, 'checked') ? input.checked : false;
         this.id = _.has(input, 'id') ? input.id : -1;
-        //console.log(input.id);
         this.rootId = _.has(input, 'id') ? input.id.toString().split("-")[0] : -1;
         this.layer = _.has(input, 'id') ? input.id.toString().split("-").length : -1;
         if (_.has(input, 'children')) {
@@ -24,6 +23,7 @@ function TreeNode(args) {
 
     this.setup(args);
 
+    //returns object as data only without the functions
     this.dataOnly = function() {
         var _item = {
             name: this.name,
@@ -32,12 +32,14 @@ function TreeNode(args) {
             rootId: this.rootId,
             layer: this.layer,
             children: []
-        }
+        };
         for (var i in this.children)
             _item.children[i] = this.children[i].dataOnly();
         return _item;
-    }
+    };
 
+
+    //CHILD MANAGEMENT
     this.addToChildren = function(input) {
         this.children.push(input);
     };
@@ -46,38 +48,16 @@ function TreeNode(args) {
         this.addToChildren(new TreeNode({ "name": name, "id": this.id + "-" + (this.children.length + 1) }));
     };
 
-    this.generateCardStruct = function() {
-        if (this.children) {
-            var returnArray = [this.checked];
-            for (var i = 0; i < this.children.length; i++) {
-                returnArray.push(this.children[i].generateCardStruct());
-            }
-            return returnArray;
-        } else {
-            return this.checked;
-        }
-    };
-
-    this.JSONexport = function() {
-        var returnText = JSON.stringify(this);
-        return returnText;
-    };
-
-    this.JSONimport = function(string) {
-        tempObject = JSON.parse(string);
-        this.setup(tempObject);
-    };
 
     this.gen_boxes = function(layer) {
-        if (typeof layer == 'undefined')
-            layer = 0;
+        if (!layer) layer = 0;
 
         var txt = '';
 
         if (this.children.length > 0) {
-            txt += divHeadGen({ "class": ("fade box " + bToCClass(this.checked)), "id": "box_" + this.id, "title": this.name }, topPartitionStyles[layer]);
+            txt += divHeadGen({ "class": ("fade box " + bToCClass(this.checked)), "id": "box_" + this.id, "title": this.name }, STYLE.topPartition[layer]);
             txt += '</div>';
-            txt += divHeadGen({}, botPartitionStyles[layer]);
+            txt += divHeadGen({}, STYLE.botPartition[layer]);
 
             var topWidth = 100 / (this.children.length);
             for (var i in this.children) {
@@ -86,7 +66,7 @@ function TreeNode(args) {
                 txt += 'width:' + topWidth + '%; ';
 
                 if (i > 0) {
-                    txt += 'border-left:' + lineStyle[0] + ";";
+                    txt += 'border-left:' + STYLE.line[0] + ";";
                 }
 
                 txt += '">';
@@ -98,17 +78,16 @@ function TreeNode(args) {
             txt += divHeadGen({ "class": "box fade " + bToCClass(this.checked), "id": "box_" + this.id, "title": this.name }, {});
             txt += '</div>';
         }
-
         return txt;
     };
 
     this.gen_card_inner = function() {
-        var text = '<div style="height:30%; border-bottom: ' + lineStyle[1] + '; box-shadow: 0px 2px 2px -2px; z-index: 3">';
+        var text = '<div style="height:30%; border-bottom: ' + STYLE.line[1] + '; box-shadow: 0px 2px 2px -2px; z-index: 3">';
         text += '<input style="text-align:center; padding-top:0%; width:94%;border:none;outline:none" maxlength="20" value = "' + this.name + '">';
-        text += '<div style="text-align:center; width:6%; left:94%; border-left: ' + lineStyle[1] + '">';
+        text += '<div style="text-align:center; width:6%; left:94%; border-left: ' + STYLE.line[1] + '">';
 
         if (this.layer < 3) {
-            text += '<div class = "fade but_del" style="top: 0%; height:20%; border-bottom:' + lineStyle[1] + '"></div>';
+            text += '<div class = "fade but_del" style="top: 0%; height:20%; border-bottom:' + STYLE.line[1] + '"></div>';
             text += '<div class = "fade but_ed" style="top: 20%; height:80%""></div>';
         } else {
             text += '<div class = "fade but_del" style="top: 0%; height:100%""></div>';
@@ -218,9 +197,21 @@ function TreeNode(args) {
         return -1;
     };
 
-    this.reset = function(){
+    this.reset = function() {
         this.checked = false;
         for (var i in this.children)
             this.children[i].reset();
-    }
+    };
+
+
+    //Not used as of now, candidate for testing textfile saves
+    this.JSONexport = function() {
+        var returnText = JSON.stringify(this);
+        return returnText;
+    };
+
+    this.JSONimport = function(string) {
+        tempObject = JSON.parse(string);
+        this.setup(tempObject);
+    };
 }

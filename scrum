@@ -18,14 +18,11 @@ GOALS:
 	formatting
 	toggle and events
 2. checkbox in subview
-3. Refactor
-	html
-	css
-		less?
-	js
-	consider angular/react
+3. consider angular/react
 4. percentage bars
-5. suggestion view
+5. suggestion view/daily planning
+	new pane
+	darg/drop functionality
 6. grand planning
 	mosaic
 
