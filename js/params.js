@@ -1,8 +1,14 @@
 /**
+ * PARAM.js
+ * for (more or less) static objects
+ */
+
+/**
  * Styling object for colors, lines, partition styles
  * @type {Object}
  */
-var STYLE = {
+
+STYLE = {
     "colors": {
         "LINE": "#FFFFFF",
         "LINE2": "#A3A3A3",
@@ -56,15 +62,22 @@ STYLE["botPartition"] = [{
  * Texts for plus-card texts
  * @type {String}
  */
-var plusCardText = '<div id = "add_card" class = "inline card"><img src = "../img/plus.png"></div>';
-var subPlusCardText = '<div id = "sub_add_card" class = "inline card"><img src = "../img/plus.png"></div>';
+plusCardText = '<div id = "add_card" class = "inline card"><img src = "../img/plus.png"></div>';
+subPlusCardText = '<div id = "sub_add_card" class = "inline card"><img src = "../img/plus.png"></div>';
+
 
 /**
  * Status object for tracking user states
  * @type {Object}
  */
-var STATUS = {
+STATUS = {
     "categ": 1,
     "subpageId": -1,
     "subMode": false
 };
+
+mainNode = [
+    [],
+    [],
+    []
+];

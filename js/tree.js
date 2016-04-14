@@ -1,4 +1,7 @@
-function TreeNode(args) {
+require("./params.js")
+require("./base.js")
+
+TreeNode = function(args) {
 
     this.name = '';
     this.checked = false;
@@ -48,7 +51,6 @@ function TreeNode(args) {
         this.addToChildren(new TreeNode({ "name": name, "id": this.id + "-" + (this.children.length + 1) }));
     };
 
-
     this.gen_boxes = function(layer) {
         if (!layer) layer = 0;
 
@@ -88,7 +90,7 @@ function TreeNode(args) {
 
         if (this.layer < 3) {
             text += '<div class = "fade but_del" style="top: 0%; height:20%; border-bottom:' + STYLE.line[1] + '"></div>';
-            text += '<div class = "fade but_ed" style="top: 20%; height:80%""></div>';
+            text += '<div class = "fade but_ed" style="top: 20%; height:80%"></div>';
         } else {
             text += '<div class = "fade but_del" style="top: 0%; height:100%""></div>';
         }
@@ -215,3 +217,4 @@ function TreeNode(args) {
         this.setup(tempObject);
     };
 }
+

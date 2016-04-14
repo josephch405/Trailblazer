@@ -9,15 +9,24 @@ A fully fledged task tracker
 - history tracking
 - a drawing board/notebook
 
+o	Chrome app
+o	Mobile?
+o	Cloud?
+o	Native?
+
+
 
 SPRINT 
 
 GOALS:
+.5 clean up libraries - make tree library
 1. Tasks
 	objects
 	formatting
 	toggle and events
 2. checkbox in subview
+2.5 notebook length cap
+2.6 notebook typing slide glitch
 3. consider angular/react
 4. percentage bars
 5. suggestion view/daily planning
@@ -49,3 +58,70 @@ _________________________________________
 |										|
 |										|
 |__DRAWER_______________________________|
+
+
+
+
+-WINDOW
+	-Topbar
+		-Work
+		-Hobbies
+		-Habits
+	-Leftbar
+		-Tasks
+	-Rightbar
+		-Notebook
+	-Bottombar
+		-button
+	-Mainwindow
+		-Card
+			-Top
+				-Name
+				-Redbutton
+				-Orangebutton
+			-Bottom
+				-Box
+					-Box
+		-AddNewCard
+
+
+
+Sample Card:
+<div id="card_6" class="inline card">
+
+	<div style="height:30%; border-bottom: solid 1px #A3A3A3; box-shadow: 0px 2px 2px -2px; z-index: 3">
+
+		<input style="text-align:center; padding-top:0%; width:94%;border:none;outline:none" maxlength="20" value="Japanese">
+
+		<div style="text-align:center; width:6%; left:94%; border-left: solid 1px #A3A3A3">
+
+			<div class="fade but_del" style="top: 0%; height:20%; border-bottom:solid 1px #A3A3A3"></div>
+
+			<div class="fade but_ed" style="top: 20%; height:80%" "=""></div>
+		</div>
+	</div>
+
+	<div style="height:70%; top:30%">
+		<div id="box_6" class="fade box but_orange" title="Japanese" style="height: 50%;">
+		</div>
+
+		<div style="top: 50%;height: 50%;border-top: solid 1px #FFFFFF;">
+			<div style="left: 0%; width:25%; ">
+				<div id="box_6-1" class="box fade but_orange" title="HiraKana" style="">
+				</div>
+			</div>
+			<div style="left: 25%; width:25%; border-left:solid 1px #FFFFFF;">
+				<div id="box_6-2" class="box fade but_orange" title="Grammar" style=""></div>
+			</div>
+			<div style="left: 50%; width:25%; border-left:solid 1px #FFFFFF;">
+				<div id="box_6-3" class="box fade but_orange" title="Vocab" style="">
+				</div>
+			</div>
+			<div style="left: 75%; width:25%; border-left:solid 1px #FFFFFF;">
+				<div id="box_6-4" class="box fade but_orange" title="Auditory" style="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
