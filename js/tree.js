@@ -1,6 +1,3 @@
-require("./params.js")
-require("./base.js")
-
 TreeNode = function(args) {
 
     this.name = '';
@@ -111,7 +108,7 @@ TreeNode = function(args) {
         return text;
     };
 
-    this.set_onclicks = function(propog) {
+    this.setOnclick = function(propog) {
         //propogdown
         if (propog) {
             var _id = this.id;
@@ -124,8 +121,8 @@ TreeNode = function(args) {
             $("#box_" + _id).click(function() {
                 flip_check(_id);
                 refresh_card(_id);
-                set_onclicks(_id);
-                save_all();
+                N.setOnclick(_id);
+                N.saveAll();
             });
 
             $("#card_" + _id).find(".but_del").click(function() {
@@ -136,18 +133,18 @@ TreeNode = function(args) {
                 /*if (this.value.match(/[^0-9a-zA-Z" "]/g)) {
                      this.value = this.value.replace(/[^0-9a-zA-Z" "]/g, '');
                  } code for eliminating input by regex*/
-                update_name(_id, this.value);
-                save_all();
+                N.updateName(_id, this.value);
+                N.saveAll();
             });
 
             $("#card_" + _id).find(".but_ed").click(function() {
                 expand_card(_id);
             });
             for (var i in this.children) {
-                this.children[i].set_onclicks(true);
+                this.children[i].setOnclick(true);
             }
         } else {
-            findNode(this.rootId).set_onclicks(true);
+            this.setOnclick(true);
         }
     };
 
@@ -156,7 +153,7 @@ TreeNode = function(args) {
         var target = "#card_" + this.id;
         $(target).html(text);
         if (this.parentId() != -1)
-            findNode(this.parentId()).refresh_card();
+            N.find(this.parentId()).refresh_card();
     };
 
     this.flip_check = function() {
@@ -168,7 +165,7 @@ TreeNode = function(args) {
         this.name = name;
     };
 
-    this.nextAvailableId = function() {
+    this.nextId = function() {
         var idList = [];
         for (var i = 0; i < this.children.length; i++) {
             var _array = this.children[i].id.split("-");
@@ -205,7 +202,6 @@ TreeNode = function(args) {
             this.children[i].reset();
     };
 
-
     //Not used as of now, candidate for testing textfile saves
     this.JSONexport = function() {
         var returnText = JSON.stringify(this);
@@ -218,3 +214,100 @@ TreeNode = function(args) {
     };
 }
 
+N = {
+    //TODO: make more efficient by using findById
+    /**
+     * GET
+     * Find a node based on ID
+     * RECURSIVE - Initializes at mainNode, propogates search throughout children
+     * @param  {int || String}      _id          Top-layer nodes may have int ids
+     * @param  {Array || Object}    _reference   Search is performed in this range
+     * @return {int || }            [description]
+     */
+    find: function(_id, _reference) {
+        if (_.isArray(_reference)) {
+            //propogate search through array
+            for (var i in _reference) {
+                var obj1 = N.find(_id, _reference[i]);
+                if (obj1 != -1)
+                    return obj1;
+            }
+        } else if (typeof _reference == "object") {
+            //either return object, or propogate search downwards
+            if (_reference.id == _id)
+                return _reference;
+            for (var j in _reference.children) {
+                var obj2 = N.find(_id, _reference.children[j]);
+                if (obj2 != -1)
+                    return obj2;
+            }
+            return -1;
+        } else {
+            //initial call, start in mainNode
+            for (var k in mainNode) {
+                var _array = mainNode[k];
+                var obj3 = N.find(_id, _array);
+                if (obj3 != -1)
+                    return obj3;
+            }
+        }
+        return -1;
+    },
+    /**
+     * [N.setOnclick description]
+     * @param {[type]} _id [description]
+     */
+    setOnclick: function(_id) {
+        N.find(_id).setOnclick();
+        attachTooltips();
+    },
+    /**
+     * [N.saveAll description]
+     * @return {[type]} [description]
+     */
+    saveAll: function() {
+        var _mainNode = [];
+        for (var i in mainNode) {
+            _mainNode[i] = [];
+            for (var ii in mainNode[i])
+                _mainNode[i][ii] = mainNode[i][ii].dataOnly();
+        }
+        chrome.storage.sync.set({ 'mainNode': _mainNode }, function() {});
+    },
+    /**
+     * [N.loadAll description]
+     * @param  {[type]} _obj [description]
+     * @return {[type]}      [description]
+     */
+    loadAll: function(_obj) {
+        for (var i = 0; i < _obj.length; i++) {
+            for (var ii in _obj[i]) {
+                import_card(nodeArray(i), _obj[i][ii]);
+            }
+        }
+    },
+    /**
+     * [N.nextId description]
+     * @return {[type]} [description]
+     */
+    nextId: function() {
+        var idList = [];
+        for (var i = 0; i < mainNode.length; i++) {
+            for (var ii = 0; ii < mainNode[i].length; ii++) {
+                idList.push(mainNode[i][ii].id);
+            }
+        }
+        if (idList.length === 0) {
+            return 1;
+        } else {
+            var _i = 1;
+            while (idList.indexOf(_i) != -1) {
+                _i++;
+            }
+            return _i;
+        }
+    },
+    updateName: function(_id, _name) {
+        N.find(_id).set_name(_name);
+    }
+}

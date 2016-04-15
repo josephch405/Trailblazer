@@ -62,7 +62,7 @@ div input,
 }
 
 .card * {
-    font-size: 20px;
+    font-size: 3vh;
 }
 
 #bar_top {
@@ -100,7 +100,7 @@ div input,
 }
 
 .top_title span {
-    font-size: 42px;
+    font-size: 6vh;
     vertical-align: middle;
     display: table-cell;
     color: #007FFF;
@@ -154,7 +154,7 @@ div input,
     width:95%;
     right:0;
     overflow: hidden;
-    font-size: 32px;
+    font-size: 5vh;
     padding: 2%;
 }
 
@@ -264,6 +264,10 @@ div input,
     background-color: #FFA500
 }
 
+.bar > h2{
+    margin:1vh;
+}
+
 .slideUp:hover {
     -webkit-transform: translate(0, -85%) scale(1.2,1.2);
 }
@@ -278,12 +282,12 @@ div input,
 
 .bar {
     box-shadow: 0 0 4px 0 black;
-    font-size: 16px;
+    font-size: 2.5vh;
     color: white;
 }
 
 .ui-tooltip {
-    font-size: 16px;
+    font-size: 2.5vh;
 }
 
 .ui-tooltip-content {
@@ -297,4 +301,57 @@ div input,
     resize:none;
     font-family:Roboto;
     font-size:16px;
+}
+
+#taskTable{
+    width:100%;
+    border-collapse: collapse;
+}
+
+#taskTable > tbody{
+    border:white solid .4vw;
+}
+
+#taskList{
+    height:auto;
+}
+
+.task{
+    height:3vh;
+    border-bottom:orange solid .5vh;
+    background-color:white;
+}   
+
+.taskCheck{
+    width:2.5vw;
+    border:white solid .4vw;
+    box-sizing:border-box;
+}
+
+.taskName{
+    padding-left:4vh;
+}
+
+.task input {
+    position:static;
+    text-align:left;
+    border:none;
+    outline:none;
+    font-size:3vh;
+}
+
+.addTask{
+    width:5vw;
+}
+
+.taskDelete{
+    background-color: #FF0000;
+    width:2.5vw;
+    border:white solid .4vw;
+    border-left:white solid .8vw;
+    box-sizing:border-box;
+}
+
+.taskDelete:hover{
+    background-color: #FF8383;
 }

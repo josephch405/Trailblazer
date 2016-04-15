@@ -65,77 +65,44 @@ boolToCol = function(ticked) {
     return STYLE.colors.ORANGE;
 }
 
-/**
- * GET
- * Find a node based on ID
- * RECURSIVE - Initializes at mainNode, propogates search throughout children
- * @param  {int || String}      _id          Top-layer nodes may have int ids
- * @param  {Array || Object}    _reference   Search is performed in this range
- * @return {int || }            [description]
- */
-findNode = function(_id, _reference) {
-    if (_.isArray(_reference)) {
-        //propogate search through array
-        for (var i in _reference) {
-            var obj1 = findNode(_id, _reference[i]);
-            if (obj1 != -1)
-                return obj1;
-        }
-    } else if (typeof _reference == "object") {
-        //either return object, or propogate search downwards
-        if (_reference.id == _id)
-            return _reference;
-        for (var j in _reference.children) {
-            var obj2 = findNode(_id, _reference.children[j]);
-            if (obj2 != -1)
-                return obj2;
-        }
-        return -1;
-    } else {
-        //initial call, start in mainNode
-        for (var k in mainNode) {
-            var _array = mainNode[k];
-            var obj3 = findNode(_id, _array);
-            if (obj3 != -1)
-                return obj3;
-        }
-    }
-    return -1;
+
+setBaseOnclicks = function() {
+    $("#categ_1").click(function() { switchCateg(0); });
+    $("#categ_2").click(function() { switchCateg(1); });
+    $("#categ_3").click(function() { switchCateg(2); });
+
+    $('#add_card').click(function() {
+        add_new_card(nodeArray(STATUS.categ));
+    });
+
+    $('#sub_add_card').click(function() {
+        sub_add_new_card(N.find(STATUS.subpageId));
+    });
+
+    $('#greypage').click(function() {
+        returnToMain();
+    });
+
+    $('#reset_btn').click(function() {
+        resetDay();
+    })
+
+    $('#arrowOut').click(function() {
+        backButton();
+    })
 }
 
 /**
- * [refresh_card description]
- * @param  {[type]} _id [description]
+ * Finds and returns first item in array with id
+ * @param  {[type]} arr [description]
+ * @param  {[type]} i   [description]
  * @return {[type]}     [description]
  */
-refresh_card = function(_id) {
-    findNode(_id).refresh_card();
+findById = function(arr, i) {
+    return arr[findIndexById(arr, i)];
 }
 
-/**
- * [flip_check description]
- * @param  {[type]} _id [description]
- * @return {[type]}     [description]
- */
-flip_check = function(_id) {
-    findNode(_id).flip_check();
-}
-
-/**
- * ATTACH
- * Attaches jquery tooltips to boxes
- * Use whenever new boxes are added
- * @return {null}
- */
-attachTooltips = function() {
-    $(".box").tooltip(STYLE.tooltip);
-}
-
-/**
- * [set_onclicks description]
- * @param {[type]} _id [description]
- */
-set_onclicks = function(_id) {
-    findNode(_id).set_onclicks();
-    attachTooltips();
+findIndexById = function(arr, i) {
+    index = arr.findIndex(x => x.id==i)
+    return index;
 }

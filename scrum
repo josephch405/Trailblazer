@@ -19,13 +19,8 @@ o	Native?
 SPRINT 
 
 GOALS:
-.5 clean up libraries - make tree library
-1. Tasks
-	objects
-	formatting
-	toggle and events
-2. checkbox in subview
-2.5 notebook length cap
+1. checkbox in subview
+2. notebook length cap
 2.6 notebook typing slide glitch
 3. consider angular/react
 4. percentage bars
@@ -34,6 +29,9 @@ GOALS:
 	darg/drop functionality
 6. grand planning
 	mosaic
+7. help
+8. move styling outside
+9. task time
 
 
 ALEX FEATURES

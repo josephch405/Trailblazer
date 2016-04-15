@@ -7,12 +7,18 @@
  * TREE
  * MISC
  */
+
+React = require('react');
+ReactDOM = require('react-dom');
+
 _ = require('lodash');
 $ = require('jquery');
+
 require("jquery-ui");
 require("./params.js");
 require("./base.js");
 require("./tree.js");
+require("./task.js");
 require("./notebook.js");
 
 /**
@@ -20,11 +26,11 @@ require("./notebook.js");
  * @param {[type]} _array [description]
  */
 add_new_card = function(_array) {
-    var _id = nextAvailableId();
+    var _id = N.nextId();
     _array.push(new TreeNode({ "name": "New Task", "id": _id }));
     $(_array[_array.length - 1].gen_card()).insertBefore($("#add_card"));
-    set_onclicks(_id);
-    save_all();
+    N.setOnclick(_id);
+    N.saveAll();
 }
 
 /**
@@ -33,11 +39,11 @@ add_new_card = function(_array) {
  * @return {[type]}       [description]
  */
 sub_add_new_card = function(_node) {
-    var _id = _node.nextAvailableId();
+    var _id = _node.N.nextId();
     _node.children.push(new TreeNode({ "name": "New Task", "id": _id }));
     $(_node.children[_node.children.length - 1].gen_card()).insertBefore($("#sub_add_card"));
-    set_onclicks(_id);
-    save_all();
+    N.setOnclick(_id);
+    N.saveAll();
 }
 
 /**
@@ -50,82 +56,12 @@ import_card = function(_array, _obj) {
     _array.push(new TreeNode(_obj));
 }
 
-
-
-/**
- * [pushCategToBoard description]
- * @param  {[type]} _categ [description]
- * @return {[type]}        [description]
- */
-function pushCategToBoard(_categ) {
-    $("#cup_main").html(plusCardText);
-    var nodes = nodeQuery(_categ);
-    for (var i = 0; i < nodes.length; i++) {
-        $(nodes[i].gen_card()).insertBefore($("#add_card"));
-        nodes[i].set_onclicks();
-    }
-
-    $('#add_card').click(function() {
-        add_new_card(nodeQuery(STATUS.categ));
-    });
-    attachTooltips();
-}
-
-/**
- * [pushNodeToSub description]
- * @param  {[type]} _node [description]
- * @return {[type]}       [description]
- */
-function pushNodeToSub(_node) {
-    $("#cup_sub").html(subPlusCardText);
-    //while($("#cup_main").html != ""){}
-    var nodes = _node.children;
-    for (var i = 0; i < nodes.length; i++)
-        $(nodes[i].gen_card()).insertBefore($("#sub_add_card"));
-    for (var i = 0; i < nodes.length; i++)
-        nodes[i].set_onclicks();
-
-    $('#sub_add_card').click(function() {
-        sub_add_new_card(findNode(STATUS.subpageId));
-    });
-
-    attachTooltips();
-}
-
-/**
- * [save_all description]
- * @return {[type]} [description]
- */
-function save_all() {
-    var _mainNode = [];
-    for (var i in mainNode) {
-        _mainNode[i] = [];
-        for (var ii in mainNode[i])
-            _mainNode[i][ii] = mainNode[i][ii].dataOnly();
-    }
-    chrome.storage.sync.set({ 'mainNode': _mainNode }, function() {});
-}
-
-/**
- * [load_all description]
- * @param  {[type]} _obj [description]
- * @return {[type]}      [description]
- */
-function load_all(_obj) {
-    for (var i = 0; i < _obj.length; i++) {
-        for (var ii in _obj[i]) {
-            import_card(nodeQuery(i), _obj[i][ii]);
-        }
-    }
-}
-
-
 /**
  * [delete_card description]
  * @param  {[type]} _id [description]
  * @return {[type]}     [description]
  */
-function delete_card(_id) {
+delete_card = function(_id) {
     var done = false;
 
     for (var t in mainNode) {
@@ -142,7 +78,7 @@ function delete_card(_id) {
         var _parentId = _id.split("-");
         _parentId.splice(-1, 1);
         _parentId = _parentId.join("-");
-        var _parent = findNode(_parentId);
+        var _parent = N.find(_parentId);
         for (var i in _parent.children) {
             if (_parent.children[i].id == _id) {
                 _parent.children.splice(i, 1);
@@ -152,7 +88,7 @@ function delete_card(_id) {
     }
 
     $("#card_" + _id).remove();
-    save_all();
+    N.saveAll();
 
     return 1;
 }
@@ -162,60 +98,100 @@ function delete_card(_id) {
  * @param  {[type]} _id [description]
  * @return {[type]}     [description]
  */
-function expand_card(_id) {
+expand_card = function(_id) {
     greypage(true);
     subpage(true);
-    $("#cup_sub_title").html(findNode(_id).name);
+    $("#cup_sub_title").html(N.find(_id).name);
     STATUS.subpageId = _id;
-    pushNodeToSub(findNode(_id));
+    pushNodeToSub(N.find(_id));
     STATUS.subMode = true;
-    save_all();
+    N.saveAll();
     return -1;
 }
+
+
+/**
+ * [pushCategToBoard description]
+ * @param  {[type]} _categ [description]
+ * @return {[type]}        [description]
+ */
+pushCategToBoard = function(_categ) {
+    $("#cup_main").html(plusCardText);
+    var nodes = nodeArray(_categ);
+    for (var i = 0; i < nodes.length; i++) {
+        $(nodes[i].gen_card()).insertBefore($("#add_card"));
+        nodes[i].setOnclick();
+    }
+
+    $('#add_card').click(function() {
+        add_new_card(nodeArray(STATUS.categ));
+    });
+    attachTooltips();
+}
+
+/**
+ * [pushNodeToSub description]
+ * @param  {[type]} _node [description]
+ * @return {[type]}       [description]
+ */
+pushNodeToSub = function(_node) {
+    $("#cup_sub").html(subPlusCardText);
+    //while($("#cup_main").html != ""){}
+    var nodes = _node.children;
+    for (var i = 0; i < nodes.length; i++)
+        $(nodes[i].gen_card()).insertBefore($("#sub_add_card"));
+    for (var i = 0; i < nodes.length; i++)
+        nodes[i].setOnclick();
+
+    $('#sub_add_card').click(function() {
+        sub_add_new_card(N.find(STATUS.subpageId));
+    });
+
+    attachTooltips();
+}
+
+
 
 /**
  * [returnToMain description]
  * @return {[type]} [description]
  */
-function returnToMain() {
+returnToMain = function() {
     greypage(false);
     subpage(false);
     pushCategToBoard(STATUS.categ);
     STATUS.subMode = false;
-    save_all();
+    N.saveAll();
     return -1;
 }
 
+
 /**
- * [update_name description]
- * @param  {[type]} _id   [description]
- * @param  {[type]} _name [description]
- * @return {[type]}       [description]
+ * [refresh_card description]
+ * @param  {[type]} _id [description]
+ * @return {[type]}     [description]
  */
-function update_name(_id, _name) {
-    findNode(_id).set_name(_name);
+refresh_card = function(_id) {
+    N.find(_id).refresh_card();
 }
 
 /**
- * [nextAvailableId description]
- * @return {[type]} [description]
+ * [flip_check description]
+ * @param  {[type]} _id [description]
+ * @return {[type]}     [description]
  */
-function nextAvailableId() {
-    var idList = [];
-    for (var i = 0; i < mainNode.length; i++) {
-        for (var ii = 0; ii < mainNode[i].length; ii++) {
-            idList.push(mainNode[i][ii].id);
-        }
-    }
-    if (idList.length === 0) {
-        return 1;
-    } else {
-        var _i = 1;
-        while (idList.indexOf(_i) != -1) {
-            _i++;
-        }
-        return _i;
-    }
+flip_check = function(_id) {
+    N.find(_id).flip_check();
+}
+
+/**
+ * ATTACH
+ * Attaches jquery tooltips to boxes
+ * Use whenever new boxes are added
+ * @return {null}
+ */
+attachTooltips = function() {
+    $(".box").tooltip(STYLE.tooltip);
 }
 
 /**
@@ -223,7 +199,7 @@ function nextAvailableId() {
  * @param  {[type]} _target [description]
  * @return {[type]}         [description]
  */
-function switchCateg(_target) {
+switchCateg = function(_target) {
     pushCategToBoard(_target);
     $('#categ_' + (_target + 1)).toggleClass("top_");
     $('#categ_' + (_target + 1)).toggleClass("top_s");
@@ -237,7 +213,7 @@ function switchCateg(_target) {
  * @param  {[type]} _in [description]
  * @return {[type]}     [description]
  */
-function greypage(_in) {
+greypage = function(_in) {
     if (_in) {
         $("#greypage").css("display", "block");
         //$("#greypage").removeClass("hidden_fade");
@@ -252,7 +228,7 @@ function greypage(_in) {
  * @param  {[type]} _in [description]
  * @return {[type]}     [description]
  */
-function subpage(_in) {
+subpage = function(_in) {
     if (_in) {
         //$("#cup_sub_page").css("display", "block");
         $("#cup_sub_page").removeClass("hidden_top");
@@ -269,20 +245,20 @@ function subpage(_in) {
  * [resetDay description]
  * @return {[type]} [description]
  */
-function resetDay() {
+resetDay = function() {
     for (var i = 0; i < 3; i++) {
         for (var ii = 0; ii < mainNode[i].length; ii++)
             mainNode[i][ii].reset();
     }
     pushCategToBoard(STATUS.categ);
-    save_all();
+    N.saveAll();
 }
 
 /**
  * [backButton description]
  * @return {[type]} [description]
  */
-function backButton() {
+backButton = function() {
     var temp = STATUS.subpageId.toString().split("-");
     if (temp.length <= 1)
         returnToMain();
@@ -290,30 +266,33 @@ function backButton() {
         expand_card(temp.slice(0, -1).join("-"));
 }
 
-//IMPORTANT - replace with GET CATEG ARRAY function
-function nodeQuery(_categ, _id) {
+nodeArray = function(_categ) {
+    /*
     if (typeof _id == 'number')
-        return findNodeInArray(_id, mainNode[_categ]);
+        return N.findInArray(_id, mainNode[_categ]);*/
     return mainNode[_categ];
 }
 
 
 chrome.storage.sync.get('mainNode', function(result) {
-    load_all(result.mainNode);
+    N.loadAll(result.mainNode);
     pushCategToBoard(STATUS.categ);
 });
 
+chrome.storage.sync.get('taskData', function(result) {
+    T.loadAll(result.taskData);
+});
 
 $("#categ_1").click(function() { switchCateg(0); });
 $("#categ_2").click(function() { switchCateg(1); });
 $("#categ_3").click(function() { switchCateg(2); });
 
 $('#add_card').click(function() {
-    add_new_card(nodeQuery(STATUS.categ));
+    add_new_card(nodeArray(STATUS.categ));
 });
 
 $('#sub_add_card').click(function() {
-    sub_add_new_card(findNode(STATUS.subpageId));
+    sub_add_new_card(N.find(STATUS.subpageId));
 });
 
 $('#greypage').click(function() {
