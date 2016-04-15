@@ -911,7 +911,7 @@ TreeNode = function (args) {
                 this.children[i].setOnclick(true);
             }
         } else {
-            this.setOnclick(true);
+            N.find(this.rootId).setOnclick(true);
         }
     };
 
