@@ -1,6 +1,6 @@
 T = {
     saveAll: function() {
-        chrome.storage.sync.set({ 'taskData': taskData }, function() {});
+        chrome.storage.local.set({ 'taskData': taskData }, function() {});
     },
 
     loadAll: function(_obj) {
@@ -23,10 +23,7 @@ T = {
     }
 }
 
-taskData = [
-    { id: 1, text: 'This is one comment', check: true },
-    { id: 2, text: 'This is *another* comment', check: false }
-];
+taskData = [];
 
 TaskList = React.createClass({
     render: function() {

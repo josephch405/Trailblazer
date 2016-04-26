@@ -84,7 +84,7 @@ setBaseOnclicks = function() {
     });
 
     $('#reset_btn').click(function() {
-        resetDay();
+        checkoutNodes();
     })
 
     $('#arrowOut').click(function() {

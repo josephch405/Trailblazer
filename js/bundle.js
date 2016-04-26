@@ -181,7 +181,7 @@ setBaseOnclicks = function () {
     });
 
     $('#reset_btn').click(function () {
-        resetDay();
+        checkoutNodes();
     });
 
     $('#arrowOut').click(function () {
@@ -234,8 +234,8 @@ require("./notebook.js");
  */
 add_new_card = function (_array) {
     var _id = N.nextId();
-    _array.push(new TreeNode({ "name": "New Task", "id": _id }));
-    $(_array[_array.length - 1].gen_card()).insertBefore($("#add_card"));
+    _array.push(N.create({ "name": "New Task", "id": _id }));
+    $(N.gen_card(_array[_array.length - 1])).insertBefore($("#add_card"));
     N.setOnclick(_id);
     N.saveAll();
 };
@@ -246,21 +246,11 @@ add_new_card = function (_array) {
  * @return {[type]}       [description]
  */
 sub_add_new_card = function (_node) {
-    var _id = _node.N.nextId();
-    _node.children.push(new TreeNode({ "name": "New Task", "id": _id }));
-    $(_node.children[_node.children.length - 1].gen_card()).insertBefore($("#sub_add_card"));
+    var _id = N.nextChildId(_node.id);
+    _node.children.push(N.create({ "name": "New Task", "id": _id }));
+    $(N.gen_card(_node.children[_node.children.length - 1])).insertBefore($("#sub_add_card"));
     N.setOnclick(_id);
     N.saveAll();
-};
-
-/**
- * [import_card description]
- * @param  {[type]} _array [description]
- * @param  {[type]} _obj   [description]
- * @return {[type]}        [description]
- */
-import_card = function (_array, _obj) {
-    _array.push(new TreeNode(_obj));
 };
 
 /**
@@ -282,9 +272,7 @@ delete_card = function (_id) {
     }
 
     if (!done && _id.split("-").length > 1) {
-        var _parentId = _id.split("-");
-        _parentId.splice(-1, 1);
-        _parentId = _parentId.join("-");
+        var _parentId = N.parentId(_id);
         var _parent = N.find(_parentId);
         for (var i in _parent.children) {
             if (_parent.children[i].id == _id) {
@@ -325,8 +313,8 @@ pushCategToBoard = function (_categ) {
     $("#cup_main").html(plusCardText);
     var nodes = nodeArray(_categ);
     for (var i = 0; i < nodes.length; i++) {
-        $(nodes[i].gen_card()).insertBefore($("#add_card"));
-        nodes[i].setOnclick();
+        $(N.gen_card(nodes[i])).insertBefore($("#add_card"));
+        N.setOnclick(nodes[i].id);
     }
 
     $('#add_card').click(function () {
@@ -344,8 +332,8 @@ pushNodeToSub = function (_node) {
     $("#cup_sub").html(subPlusCardText);
     //while($("#cup_main").html != ""){}
     var nodes = _node.children;
-    for (var i = 0; i < nodes.length; i++) $(nodes[i].gen_card()).insertBefore($("#sub_add_card"));
-    for (var i = 0; i < nodes.length; i++) nodes[i].setOnclick();
+    for (var i = 0; i < nodes.length; i++) $(N.gen_card(nodes[i])).insertBefore($("#sub_add_card"));
+    for (var i = 0; i < nodes.length; i++) N.setOnclick(nodes[i].id);
 
     $('#sub_add_card').click(function () {
         sub_add_new_card(N.find(STATUS.subpageId));
@@ -365,24 +353,6 @@ returnToMain = function () {
     STATUS.subMode = false;
     N.saveAll();
     return -1;
-};
-
-/**
- * [refresh_card description]
- * @param  {[type]} _id [description]
- * @return {[type]}     [description]
- */
-refresh_card = function (_id) {
-    N.find(_id).refresh_card();
-};
-
-/**
- * [flip_check description]
- * @param  {[type]} _id [description]
- * @return {[type]}     [description]
- */
-flip_check = function (_id) {
-    N.find(_id).flip_check();
 };
 
 /**
@@ -446,12 +416,8 @@ subpage = function (_in) {
  * [resetDay description]
  * @return {[type]} [description]
  */
-resetDay = function () {
-    for (var i = 0; i < 3; i++) {
-        for (var ii = 0; ii < mainNode[i].length; ii++) mainNode[i][ii].reset();
-    }
-    pushCategToBoard(STATUS.categ);
-    N.saveAll();
+checkoutNodes = function () {
+    N.evalAll();
 };
 
 /**
@@ -470,44 +436,16 @@ nodeArray = function (_categ) {
     return mainNode[_categ];
 };
 
-chrome.storage.sync.get('mainNode', function (result) {
+chrome.storage.local.get('mainNode', function (result) {
     N.loadAll(result.mainNode);
     pushCategToBoard(STATUS.categ);
 });
 
-chrome.storage.sync.get('taskData', function (result) {
+chrome.storage.local.get('taskData', function (result) {
     T.loadAll(result.taskData);
 });
 
-$("#categ_1").click(function () {
-    switchCateg(0);
-});
-$("#categ_2").click(function () {
-    switchCateg(1);
-});
-$("#categ_3").click(function () {
-    switchCateg(2);
-});
-
-$('#add_card').click(function () {
-    add_new_card(nodeArray(STATUS.categ));
-});
-
-$('#sub_add_card').click(function () {
-    sub_add_new_card(N.find(STATUS.subpageId));
-});
-
-$('#greypage').click(function () {
-    returnToMain();
-});
-
-$('#reset_btn').click(function () {
-    resetDay();
-});
-
-$('#arrowOut').click(function () {
-    backButton();
-});
+setBaseOnclicks();
 
 },{"./base.js":2,"./notebook.js":4,"./params.js":5,"./task.js":6,"./tree.js":7,"jquery":9,"jquery-ui":8,"lodash":10,"react":174,"react-dom":11}],4:[function(require,module,exports){
 /**
@@ -615,7 +553,7 @@ mainNode = [[], [], []];
 },{}],6:[function(require,module,exports){
 T = {
     saveAll: function () {
-        chrome.storage.sync.set({ 'taskData': taskData }, function () {});
+        chrome.storage.local.set({ 'taskData': taskData }, function () {});
     },
 
     loadAll: function (_obj) {
@@ -635,7 +573,7 @@ T = {
     }
 };
 
-taskData = [{ id: 1, text: 'This is one comment', check: true }, { id: 2, text: 'This is *another* comment', check: false }];
+taskData = [];
 
 TaskList = React.createClass({
     displayName: 'TaskList',
@@ -767,227 +705,49 @@ AddTask = React.createClass({
 });
 
 },{}],7:[function(require,module,exports){
-TreeNode = function (args) {
+N = {
+    /**
+     * Creates new tree-formatted object based on parameters
+     * @param  Object input Filtered for existence
+     * @return Object       Output object
+     */
+    create: function (input) {
+        var _node = {
+            "name": '',
+            "checked": false,
+            "id": -1,
+            "rootId": -1,
+            "children": [],
+            "layer": -1,
+            "value": 0
+        };
 
-    this.name = '';
-    this.checked = false;
-    this.id = -1;
-    this.rootId = -1;
-    this.children = [];
-    this.layer = -1;
-
-    this.setup = function (input) {
-        this.name = _.has(input, 'name') ? input.name : '';
-        this.checked = _.has(input, 'checked') ? input.checked : false;
-        this.id = _.has(input, 'id') ? input.id : -1;
-        this.rootId = _.has(input, 'id') ? input.id.toString().split("-")[0] : -1;
-        this.layer = _.has(input, 'id') ? input.id.toString().split("-").length : -1;
+        _node.name = _.has(input, 'name') ? input.name : '';
+        _node.checked = _.has(input, 'checked') ? input.checked : false;
+        _node.id = _.has(input, 'id') ? input.id : -1;
+        _node.rootId = _.has(input, 'id') ? input.id.toString().split("-")[0] : -1;
+        _node.layer = _.has(input, 'id') ? input.id.toString().split("-").length : -1;
+        _node.value = _.has(input, 'value') ? input.value : 0;
         if (_.has(input, 'children')) {
             for (var i = 0; i < input.children.length; i++) {
-                this.children[i] = new TreeNode();
-                this.children[i].setup(input.children[i]);
+                _node.children[i] = N.create(input.children[i]);
             }
         }
-    };
-
-    this.setup(args);
-
-    //returns object as data only without the functions
-    this.dataOnly = function () {
-        var _item = {
-            name: this.name,
-            checked: this.checked,
-            id: this.id,
-            rootId: this.rootId,
-            layer: this.layer,
-            children: []
-        };
-        for (var i in this.children) _item.children[i] = this.children[i].dataOnly();
-        return _item;
-    };
-
-    //CHILD MANAGEMENT
-    this.addToChildren = function (input) {
-        this.children.push(input);
-    };
-
-    this.createChild = function (name) {
-        this.addToChildren(new TreeNode({ "name": name, "id": this.id + "-" + (this.children.length + 1) }));
-    };
-
-    this.gen_boxes = function (layer) {
-        if (!layer) layer = 0;
-
-        var txt = '';
-
-        if (this.children.length > 0) {
-            txt += divHeadGen({ "class": "fade box " + bToCClass(this.checked), "id": "box_" + this.id, "title": this.name }, STYLE.topPartition[layer]);
-            txt += '</div>';
-            txt += divHeadGen({}, STYLE.botPartition[layer]);
-
-            var topWidth = 100 / this.children.length;
-            for (var i in this.children) {
-                txt += '<div ';
-                txt += ' style="left: ' + topWidth * i + '%; ';
-                txt += 'width:' + topWidth + '%; ';
-
-                if (i > 0) {
-                    txt += 'border-left:' + STYLE.line[0] + ";";
-                }
-
-                txt += '">';
-                txt += this.children[i].gen_boxes(layer + 1);
-                txt += '</div>';
-            }
-            txt += '</div>';
-        } else {
-            txt += divHeadGen({ "class": "box fade " + bToCClass(this.checked), "id": "box_" + this.id, "title": this.name }, {});
-            txt += '</div>';
-        }
-        return txt;
-    };
-
-    this.gen_card_inner = function () {
-        var text = '<div style="height:30%; border-bottom: ' + STYLE.line[1] + '; box-shadow: 0px 2px 2px -2px; z-index: 3">';
-        text += '<input style="text-align:center; padding-top:0%; width:94%;border:none;outline:none" maxlength="20" value = "' + this.name + '">';
-        text += '<div style="text-align:center; width:6%; left:94%; border-left: ' + STYLE.line[1] + '">';
-
-        if (this.layer < 3) {
-            text += '<div class = "fade but_del" style="top: 0%; height:20%; border-bottom:' + STYLE.line[1] + '"></div>';
-            text += '<div class = "fade but_ed" style="top: 20%; height:80%"></div>';
-        } else {
-            text += '<div class = "fade but_del" style="top: 0%; height:100%""></div>';
-        }
-        text += '</div>';
-        text += '</div>';
-
-        text += '<div style = "height:70%; top:30%">';
-        text += this.gen_boxes();
-        text += '</div>';
-
-        return text;
-    };
-
-    this.gen_card = function () {
-        var text = '<div id = "card_' + this.id + '" class="inline card">';
-        text += this.gen_card_inner();
-        text += '</div>';
-        return text;
-    };
-
-    this.setOnclick = function (propog) {
-        //propogdown
-        if (propog) {
-            var _id = this.id;
-
-            $("#box_" + _id).prop('onclick', null).off('click');
-            $("#card_" + _id).find(".but_del").prop('onclick', null).off('click');
-            $("#card_" + _id).find("input").prop('keyup', null).off('keyup');
-            $("#card_" + _id).find(".but_ed").prop('keyup', null).off('click');
-
-            $("#box_" + _id).click(function () {
-                flip_check(_id);
-                refresh_card(_id);
-                N.setOnclick(_id);
-                N.saveAll();
-            });
-
-            $("#card_" + _id).find(".but_del").click(function () {
-                delete_card(_id);
-            });
-
-            $("#card_" + _id).find("input").keyup(function () {
-                /*if (this.value.match(/[^0-9a-zA-Z" "]/g)) {
-                     this.value = this.value.replace(/[^0-9a-zA-Z" "]/g, '');
-                 } code for eliminating input by regex*/
-                N.updateName(_id, this.value);
-                N.saveAll();
-            });
-
-            $("#card_" + _id).find(".but_ed").click(function () {
-                expand_card(_id);
-            });
-            for (var i in this.children) {
-                this.children[i].setOnclick(true);
-            }
-        } else {
-            N.find(this.rootId).setOnclick(true);
-        }
-    };
-
-    this.refresh_card = function () {
-        var text = this.gen_card_inner();
-        var target = "#card_" + this.id;
-        $(target).html(text);
-        if (this.parentId() != -1) N.find(this.parentId()).refresh_card();
-    };
-
-    this.flip_check = function () {
-        this.checked = !this.checked;
-        console.log(this.checked);
-    };
-
-    this.set_name = function (name) {
-        this.name = name;
-    };
-
-    this.nextId = function () {
-        var idList = [];
-        for (var i = 0; i < this.children.length; i++) {
-            var _array = this.children[i].id.split("-");
-
-            idList.push(parseInt(_array[_array.length - 1]));
-        }
-        if (idList.length === 0) {
-            return this.id + "-" + 1;
-        } else {
-            var _i = 1;
-            while (idList.indexOf(_i) != -1) {
-                _i++;
-            }
-            return this.id + "-" + _i;
-        }
-    };
-
-    this.parentId = function () {
-        var _id = this.id;
-        if (typeof _id == "string") {
-            _id = this.id.split("-");
-            _id.splice(-1, 1);
-            if (_id.length > 1) return _id.join("-");
-            if (_id.length > 0) return _id;
-        }
-        return -1;
-    };
-
-    this.reset = function () {
-        this.checked = false;
-        for (var i in this.children) this.children[i].reset();
-    };
-
-    //Not used as of now, candidate for testing textfile saves
-    this.JSONexport = function () {
-        var returnText = JSON.stringify(this);
-        return returnText;
-    };
-
-    this.JSONimport = function (string) {
-        tempObject = JSON.parse(string);
-        this.setup(tempObject);
-    };
-};
-
-N = {
-    //TODO: make more efficient by using findById
+        return _node;
+    },
     /**
-     * GET
-     * Find a node based on ID
+     * Find a node based on ID - if already an object, returns object
      * RECURSIVE - Initializes at mainNode, propogates search throughout children
      * @param  {int || String}      _id          Top-layer nodes may have int ids
-     * @param  {Array || Object}    _reference   Search is performed in this range
-     * @return {int || }            [description]
+     * @param  {Array || Object}    _reference   ()Search is performed in this range
+     * @return {int || Object}                  returns object found || -1 if not found
      */
     find: function (_id, _reference) {
+        if (_.isArray(_id)) {
+            _id = _id[0];
+        } else if (typeof _id == "object") {
+            return _id;
+        }
         if (_.isArray(_reference)) {
             //propogate search through array
             for (var i in _reference) {
@@ -1013,41 +773,185 @@ N = {
         return -1;
     },
     /**
+     * Saves mainNode directly to storage
+     * @return NULL
+     */
+    saveAll: function () {
+        chrome.storage.local.set({
+            'mainNode': mainNode
+        }, function () {});
+    },
+    /**
+     * Loads array of objects into a certain category
+     * @param  Array _obj   Array of objects to load
+     * @param  int _categ   Category number to load to
+     * @return NULL
+     */
+    loadCateg: function (_obj, _categ) {
+        for (var i in _obj) {
+            nodeArray(_categ).push(N.create(_obj[i]));
+        }
+    },
+    /**
+     * Uses loadCateg to load all three categories
+     * @param  Array _obj   Array of all three categories to load
+     * @return NULL
+     */
+    loadAll: function (_obj) {
+        mainNode = [[], [], []]; //_obj ? _obj : [[],[],[]];
+        for (var i = 0; i < 3; i++) {
+            N.loadCateg(_obj[i], i);
+        }
+    },
+    /**
+     * Updates name of object fed, 
+     * @param  {[type]} _id   [description]
+     * @param  {[type]} _name [description]
+     * @return {[type]}       [description]
+     */
+    updateName: function (_node, _name) {
+        N.find(_node).name = _name;
+    },
+    gen_boxes: function (_node, layer) {
+        if (!layer) layer = 0;
+
+        var txt = '';
+        console.log(_node);
+        _node = N.find(_node);
+        console.log(_node);
+
+        if (_node.children.length > 0) {
+            txt += divHeadGen({ "class": "fade box " + bToCClass(_node.checked), "id": "box_" + _node.id, "title": _node.name }, STYLE.topPartition[layer]);
+            txt += '</div>';
+            txt += divHeadGen({}, STYLE.botPartition[layer]);
+
+            var topWidth = 100 / _node.children.length;
+            for (var i in _node.children) {
+                txt += '<div ';
+                txt += ' style="left: ' + topWidth * i + '%; ';
+                txt += 'width:' + topWidth + '%; ';
+
+                if (i > 0) {
+                    txt += 'border-left:' + STYLE.line[0] + ";";
+                }
+
+                txt += '">';
+                txt += N.gen_boxes(_node.children[i], layer + 1);
+                txt += '</div>';
+            }
+            txt += '</div>';
+        } else {
+            txt += divHeadGen({ "class": "box fade " + bToCClass(_node.checked), "id": "box_" + _node.id, "title": _node.name }, {});
+            txt += '</div>';
+        }
+        return txt;
+    },
+    gen_card_inner: function (_node) {
+        _node = N.find(_node);
+        var text = '<div style="height:30%; border-bottom: ' + STYLE.line[1] + '; box-shadow: 0px 2px 2px -2px; z-index: 3">';
+        text += '<input style="text-align:center; padding-top:0%; width:94%;border:none;outline:none" maxlength="20" value = "' + _node.name + '">';
+        text += '<div style="text-align:center; width:6%; left:94%; border-left: ' + STYLE.line[1] + '">';
+
+        if (_node.layer < 3) {
+            text += '<div class = "fade but_del" style="top: 0%; height:20%; border-bottom:' + STYLE.line[1] + '"></div>';
+            text += '<div class = "fade but_ed" style="top: 20%; height:80%"></div>';
+        } else {
+            text += '<div class = "fade but_del" style="top: 0%; height:100%""></div>';
+        }
+        text += '</div>';
+        text += '</div>';
+
+        text += '<div style = "height:70%; top:30%">';
+        text += N.gen_boxes(_node);
+        text += '</div>';
+
+        return text;
+    },
+    addToChildren: function (_node, input) {
+        _node = N.find(_node);
+        _node.children.push(input);
+    },
+    gen_card: function (_node) {
+        _node = N.find(_node);
+        var text = '<div id = "card_' + _node.id + '" class="inline card ' + N.valueToColorClass(_node.value) + '">';
+        text += N.gen_card_inner(_node);
+        text += '</div>';
+        return text;
+    },
+    /**
      * [N.setOnclick description]
      * @param {[type]} _id [description]
      */
-    setOnclick: function (_id) {
-        N.find(_id).setOnclick();
+    setOnclick: function (_node, propog) {
+        //propogdown
+        _node = N.find(_node);
+        if (propog) {
+            var _id = _node.id;
+
+            $("#box_" + _id).prop('onclick', null).off('click');
+            $("#card_" + _id).find(".but_del").prop('onclick', null).off('click');
+            $("#card_" + _id).find("input").prop('keyup', null).off('keyup');
+            $("#card_" + _id).find(".but_ed").prop('keyup', null).off('click');
+
+            $("#box_" + _id).click(function () {
+                N.flip_check(_id);
+                N.refresh_card(_id);
+                N.setOnclick(_id);
+                N.saveAll();
+            });
+
+            $("#card_" + _id).find(".but_del").click(function () {
+                delete_card(_id);
+            });
+
+            $("#card_" + _id).find("input").keyup(function () {
+                /*if (this.value.match(/[^0-9a-zA-Z" "]/g)) {
+                     this.value = this.value.replace(/[^0-9a-zA-Z" "]/g, '');
+                 } code for eliminating input by regex*/
+                N.updateName(_id, this.value);
+                N.saveAll();
+            });
+
+            $("#card_" + _id).find(".but_ed").click(function () {
+                expand_card(_id);
+            });
+            for (var i in _node.children) {
+                N.setOnclick(_node.children[i].id, true);
+            }
+        } else {
+            N.setOnclick(_node.rootId, true);
+        }
         attachTooltips();
     },
-    /**
-     * [N.saveAll description]
-     * @return {[type]} [description]
-     */
-    saveAll: function () {
-        var _mainNode = [];
-        for (var i in mainNode) {
-            _mainNode[i] = [];
-            for (var ii in mainNode[i]) _mainNode[i][ii] = mainNode[i][ii].dataOnly();
-        }
-        chrome.storage.sync.set({ 'mainNode': _mainNode }, function () {});
+    refresh_card: function (_node) {
+        _node = N.find(_node);
+        var text = N.gen_card_inner(_node);
+        var target = "#card_" + _node.id;
+        $(target).html(text);
+        if (N.parentId(_node.id) != -1) N.refresh_card(N.parentId(_node.id));
     },
-    /**
-     * [N.loadAll description]
-     * @param  {[type]} _obj [description]
-     * @return {[type]}      [description]
-     */
-    loadAll: function (_obj) {
-        for (var i = 0; i < _obj.length; i++) {
-            for (var ii in _obj[i]) {
-                import_card(nodeArray(i), _obj[i][ii]);
+    flip_check: function (_node) {
+        _node = N.find(_node);
+        _node.checked = !_node.checked;
+    },
+    nextChildId: function (_node) {
+        _node = N.find(_node);
+        var idList = [];
+        for (var i = 0; i < _node.children.length; i++) {
+            var _array = _node.children[i].id.split("-");
+
+            idList.push(parseInt(_array[_array.length - 1]));
+        }
+        if (idList.length === 0) {
+            return _node.id + "-" + 1;
+        } else {
+            var _i = 1;
+            while (idList.indexOf(_i) != -1) {
+                _i++;
             }
+            return _node.id + "-" + _i;
         }
     },
-    /**
-     * [N.nextId description]
-     * @return {[type]} [description]
-     */
     nextId: function () {
         var idList = [];
         for (var i = 0; i < mainNode.length; i++) {
@@ -1065,8 +969,62 @@ N = {
             return _i;
         }
     },
-    updateName: function (_id, _name) {
-        N.find(_id).set_name(_name);
+    parentId: function (_node) {
+        _node = N.find(_node);
+        var _id = _node.id;
+        if (typeof _id == "string") {
+            _id = _id.split("-");
+            _id.splice(-1, 1);
+            if (_id.length > 1) return _id.join("-");
+            if (_id.length > 0) return _id;
+        }
+        return -1;
+    },
+    clearValueAll: function () {
+        for (var i in mainNode) for (var ii in mainNode[i]) N.clearValue(mainNode[i][ii]);
+        pushCategToBoard(STATUS.categ);
+        N.saveAll();
+    },
+    clearValue: function (_node) {
+        _node = N.find(_node);
+        _node.value = 0;
+        for (var i in _node.children) N.clearValue(_node.children[i]);
+    },
+    clearCheckedAll: function () {
+        for (var i in mainNode) for (var ii in mainNode[i]) N.clearChecked(mainNode[i][ii]);
+        pushCategToBoard(STATUS.categ);
+        N.saveAll();
+    },
+    clearChecked: function (_node) {
+        _node = N.find(_node);
+        _node.checked = false;
+        for (var i in _node.children) N.clearChecked(_node.children[i]);
+    },
+    evalAll: function () {
+        for (var i in mainNode) for (var ii in mainNode[i]) N.evalCard(mainNode[i][ii]);
+        N.clearCheckedAll();
+        N.saveAll();
+        returnToMain();
+    },
+    evalCard: function (_node) {
+        _node = N.find(_node);
+        _node.value *= .8;
+        _node.value += _node.checked ? 2 : -2;
+        for (var i in _node.children) N.evalCard(_node.children[i]);
+    },
+    valueToColorClass: function (_v) {
+        if (_v > 7) return "gg";else if (_v > 3) return "gn";else if (_v > -3) return "nn";else if (_v > -7) return "rn";
+        return "rr";
+    },
+    JSONexport: function (_node) {
+        _node = N.find(_node);
+        var returnText = JSON.stringify(_node);
+        return returnText;
+    },
+    JSONimport: function (_node, string) {
+        _node = N.find(_node);
+        tempObject = JSON.parse(string);
+        _node = N.create(tempObject);
     }
 };
 

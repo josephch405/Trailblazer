@@ -19,19 +19,24 @@ o	Native?
 SPRINT 
 
 GOALS:
-1. checkbox in subview
-2. notebook length cap
-2.6 notebook typing slide glitch
-3. consider angular/react
-4. percentage bars
-5. suggestion view/daily planning
+
+1. help/tutorial
+2. checkbox in subview
+5. percentage bars
+6. suggestion view/daily planning
 	new pane
-	darg/drop functionality
-6. grand planning
+	drag/drop functionality
+7. grand planning
 	mosaic
-7. help
 8. move styling outside
-9. task time
+9. task date
+9.5 task drag-drop
+10. reactify cards
+11. Consider multiple user model
+12. Notebook - tools like bullet points
+13. card tracking
+14. notebook typing slide glitch
+15. SASS or LESS
 
 
 ALEX FEATURES

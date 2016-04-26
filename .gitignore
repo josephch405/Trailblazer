@@ -46,6 +46,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+.sass-cache/
 node_modules/
 node_modules/babel-preset-react/
 production/
+*.docx
