@@ -176,17 +176,13 @@ setBaseOnclicks = function () {
         sub_add_new_card(N.find(STATUS.subpageId));
     });
 
-    $('#greypage').click(function () {
-        returnToMain();
-    });
+    $('#greypage').click(returnToMain);
 
-    $('#reset_btn').click(function () {
-        checkoutNodes();
-    });
+    $('#reset_btn').click(checkoutNodes);
 
-    $('#arrowOut').click(function () {
-        backButton();
-    });
+    $('#arrowOut').click(backButton);
+
+    $('#tutorial').click(openTutorial);
 };
 
 /**
@@ -202,6 +198,12 @@ findById = function (arr, i) {
 findIndexById = function (arr, i) {
     index = arr.findIndex(x => x.id == i);
     return index;
+};
+
+openTutorial = function () {
+    chrome.app.window.create('/html/tutorial.html', {
+        'state': "maximized"
+    });
 };
 
 },{}],3:[function(require,module,exports){

@@ -20,24 +20,20 @@ SPRINT
 
 GOALS:
 
-1. help/tutorial
-2. checkbox in subview
-5. percentage bars
-6. suggestion view/daily planning
+1. checkbox in subview
+2. percentage bars
+3. suggestion view/daily planning
 	new pane
 	drag/drop functionality
-7. grand planning
+4. grand planning
 	mosaic
-8. move styling outside
-9. task date
-9.5 task drag-drop
-10. reactify cards
-11. Consider multiple user model
-12. Notebook - tools like bullet points
-13. card tracking
-14. notebook typing slide glitch
-15. SASS or LESS
-
+5. move styling out of treenode
+6. task date
+7. task drag-drop
+8. reactify cards
+9. Consider multiple user model
+10. Notebook - tools like bullet points
+11. notebook typing slide glitch
 
 ALEX FEATURES
 Capitalize things

@@ -356,3 +356,13 @@ div input,
 .rr > div:first-child {
     border-left: solid .5vw #FF0000;
 }
+
+#tutorial{
+    position:fixed;
+    right:0px;
+    bottom:0px;
+    padding:10px;
+    font-size: 2vh;
+    background-color:#4E4E4E;
+    color:white;
+}

@@ -1,0 +1,97 @@
+@font-face {
+    font-family: roboto;
+    src: url(Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: lato;
+    src: url(Lato-Regular.ttf);
+}
+
+html,
+body {
+    overflow-y: visible;
+}
+
+body {
+    width: 60vw;
+    margin-left: 20vw;
+    text-align: left;
+    font-family: lato;
+    font-size: 3vh;
+}
+
+ul {
+    list-style-type: decimal;
+    display: inline-block;
+    text-align: left;
+}
+
+li {
+    margin-top: 1vh;
+}
+
+body a {
+    color: black;
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 5vh;
+}
+
+h2 {
+    font-size: 4vh;
+}
+
+#taskbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 2vw;
+    margin: 0;
+    background-color: #434343;
+    height: 100vh;
+    width: 12vw;
+    color: white;
+    box-shadow: 0 0 10px 0 black;
+}
+
+#taskbar li {
+    list-style-type: none;
+}
+
+#taskbar a {
+    color: white;
+    text-decoration: none;
+}
+
+#taskbar li {
+    font-size: 16px;
+}
+
+#taskbar > li {
+    font-size: 26px;
+    margin-bottom: 5vh;
+}
+
+h1 {
+    margin-top: 10vh;
+}
+
+#tut1 {
+    width: 60vw;
+    box-shadow: 0 0 3px 0;
+}
+
+#tut2 {
+    width: 20vw;
+}
+
+#tut3,
+#tut4 {
+    width: 40vw;
+    box-shadow: 0 0 3px 0;
+}
+
+josefin sans
