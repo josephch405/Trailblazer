@@ -143,12 +143,14 @@ div input,
 }
 
 #cup_sub_title {
-    @include size(90%, 15%);
-    top: 0%;
-    right: 0;
+    @include size(40%, 15%);
+    top: 0;
+    left: 8vw;
     overflow: hidden;
     font-size: 5vh;
     padding: 2%;
+    border: none;
+    outline: none;
 }
 
 #arrowOut {

@@ -89,10 +89,10 @@ delete_card = function(_id) {
 expand_card = function(_id) {
     greypage(true);
     subpage(true);
-    $("#cup_sub_title").html(N.find(_id).name);
+    STATUS.subMode = true;
+    $("#cup_sub_title").val(N.find(_id).name);
     STATUS.subpageId = _id;
     pushNodeToSub(N.find(_id));
-    STATUS.subMode = true;
     N.saveAll();
     return -1;
 }

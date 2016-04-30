@@ -38,8 +38,7 @@ N = {
     find: function(_id, _reference) {
         if (_.isArray(_id)) {
             _id = _id[0];
-        }
-        else if (typeof _id == "object") {
+        } else if (typeof _id == "object") {
             return _id;
         }
         if (_.isArray(_reference)) {
@@ -118,9 +117,7 @@ N = {
         if (!layer) layer = 0;
 
         var txt = '';
-        console.log(_node);
         _node = N.find(_node);
-        console.log(_node);
 
         if (_node.children.length > 0) {
             txt += divHeadGen({ "class": ("fade box " + bToCClass(_node.checked)), "id": "box_" + _node.id, "title": _node.name }, STYLE.topPartition[layer]);
@@ -206,12 +203,21 @@ N = {
                 delete_card(_id);
             });
 
+            if (STATUS.subMode) {
+                console.log("submode")
+                $("#cup_sub_title").keyup(function() {
+                    N.updateName(STATUS.subpageId, this.value);
+                    N.saveAll();
+                    console.log("hi");
+                });
+            }
             $("#card_" + _id).find("input").keyup(function() {
                 /*if (this.value.match(/[^0-9a-zA-Z" "]/g)) {
                      this.value = this.value.replace(/[^0-9a-zA-Z" "]/g, '');
                  } code for eliminating input by regex*/
                 N.updateName(_id, this.value);
                 N.saveAll();
+                console.log("hi");
             });
 
             $("#card_" + _id).find(".but_ed").click(function() {

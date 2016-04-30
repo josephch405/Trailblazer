@@ -120,13 +120,15 @@ div input,
   overflow: hidden; }
 
 #cup_sub_title {
-  width: 90%;
+  width: 40%;
   height: 15%;
-  top: 0%;
-  right: 0;
+  top: 0;
+  left: 8vw;
   overflow: hidden;
   font-size: 5vh;
-  padding: 2%; }
+  padding: 2%;
+  border: none;
+  outline: none; }
 
 #arrowOut {
   width: 6vw;
