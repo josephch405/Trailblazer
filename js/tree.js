@@ -77,6 +77,7 @@ N = {
         chrome.storage.local.set({
             'mainNode': mainNode
         }, function() {});
+        updateCategBar();
     },
     /**
      * Loads array of objects into a certain category
@@ -85,9 +86,17 @@ N = {
      * @return NULL
      */
     loadCateg: function(_obj, _categ) {
-        for (var i in _obj) {
+        for (var i in _obj)
             nodeArray(_categ).push(N.create(_obj[i]));
-        }
+    },
+
+    categPercentage: function(index) {
+        var counter = 0;
+        for (var i in mainNode[index])
+            counter += mainNode[index][i].checked ? 1 : 0;
+        if (mainNode[index].length == 0)
+            return 1;
+        return counter/mainNode[index].length;
     },
     /**
      * Uses loadCateg to load all three categories
@@ -147,20 +156,21 @@ N = {
     },
     gen_card_inner: function(_node) {
         _node = N.find(_node);
-        var text = '<div style="height:30%; border-bottom: ' + STYLE.line[1] + '; box-shadow: 0px 2px 2px -2px; z-index: 3">';
-        text += '<input style="text-align:center; padding-top:0%; width:94%;border:none;outline:none" maxlength="20" value = "' + _node.name + '">';
-        text += '<div style="text-align:center; width:6%; left:94%; border-left: ' + STYLE.line[1] + '">';
+        var text = divClass('card_t');
+        text += '<input maxlength="20" value = "' + _node.name + '">';
+        text += divClass('card_ctrl');
 
         if (_node.layer < 3) {
-            text += '<div class = "fade but_del" style="top: 0%; height:20%; border-bottom:' + STYLE.line[1] + '"></div>';
-            text += '<div class = "fade but_ed" style="top: 20%; height:80%"></div>';
+            text += '<div class = "fade but_del" style="height:20%; border-bottom:' + STYLE.line[1] + '"></div>';
+            text += divClass('but_ed');
+            text += '</div>';
         } else {
-            text += '<div class = "fade but_del" style="top: 0%; height:100%""></div>';
+            text += '<div class = "fade but_del" style="height:100%""></div>';
         }
         text += '</div>';
         text += '</div>';
 
-        text += '<div style = "height:70%; top:30%">';
+        text += '<div class = "card_b">';
         text += N.gen_boxes(_node);
         text += '</div>';
 
@@ -203,14 +213,7 @@ N = {
                 delete_card(_id);
             });
 
-            if (STATUS.subMode) {
-                console.log("submode")
-                $("#cup_sub_title").keyup(function() {
-                    N.updateName(STATUS.subpageId, this.value);
-                    N.saveAll();
-                    console.log("hi");
-                });
-            }
+
             $("#card_" + _id).find("input").keyup(function() {
                 /*if (this.value.match(/[^0-9a-zA-Z" "]/g)) {
                      this.value = this.value.replace(/[^0-9a-zA-Z" "]/g, '');
@@ -227,6 +230,22 @@ N = {
                 N.setOnclick(_node.children[i].id, true);
             }
         } else {
+            if (STATUS.subMode) {
+                $("#cup_sub_title").keyup(function() {
+                    N.updateName(STATUS.subpageId, this.value);
+                    N.saveAll();
+                });
+
+                $("#sub_checkDiv").removeClass(bToCClass(!N.find(STATUS.subpageId).checked));
+                $("#sub_checkDiv").addClass(bToCClass(N.find(STATUS.subpageId).checked));
+                $("#sub_checkDiv").prop('onclick', null).off('click');
+                $("#sub_checkDiv").click(function() {
+                    N.flip_check(STATUS.subpageId);
+                    N.refresh_card(STATUS.subpageId);
+                    N.setOnclick(STATUS.subpageId);
+                    N.saveAll();
+                });
+            }
             N.setOnclick(_node.rootId, true);
         }
         attachTooltips();

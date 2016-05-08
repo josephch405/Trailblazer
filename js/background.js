@@ -6,6 +6,9 @@ chrome.app.runtime.onLaunched.addListener(
             'innerBounds': {
                 'minWidth': 800,
                 'minHeight': 600
+            },
+            'frame':{
+                'color': '#9DCEFF'
             }
         });
     }

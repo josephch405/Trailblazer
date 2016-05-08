@@ -1,0 +1,1198 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"backgor",
+				"background-color"
+			],
+			[
+				"_pare",
+				"_parentId"
+			],
+			[
+				"curre",
+				"currentId"
+			],
+			[
+				"box",
+				"box-shadow"
+			],
+			[
+				"push",
+				"pushCategToBoard"
+			],
+			[
+				"set",
+				"set_onclicks"
+			],
+			[
+				"import",
+				"import_card"
+			],
+			[
+				"tick",
+				"tickedToColor"
+			],
+			[
+				"backgroun",
+				"background-color"
+			],
+			[
+				"strafePid",
+				"strafePid_used"
+			],
+			[
+				"straf",
+				"strafePid"
+			],
+			[
+				"sleepT",
+				"sleepTimerFull"
+			],
+			[
+				"drawF",
+				"drawFlat"
+			],
+			[
+				"bli",
+				"blinkTimerFull"
+			],
+			[
+				"coord",
+				"coordXPos"
+			],
+			[
+				"coor",
+				"coordYPos"
+			],
+			[
+				"body",
+				"bodycontainer"
+			],
+			[
+				"strip",
+				"stripeVelocity"
+			],
+			[
+				"background",
+				"backgroundColor"
+			],
+			[
+				"append",
+				"appendAndAttach"
+			],
+			[
+				"onmou",
+				"onmouseout"
+			],
+			[
+				"bro",
+				"browserAction"
+			],
+			[
+				"ou",
+				"outString"
+			],
+			[
+				"input",
+				"inputArray"
+			],
+			[
+				"i",
+				"i"
+			],
+			[
+				"main",
+				"mainIndex"
+			],
+			[
+				"local",
+				"localStorage"
+			],
+			[
+				"create",
+				"createButton"
+			],
+			[
+				"dayOfWe",
+				"dayOfWeek-1"
+			],
+			[
+				"delete",
+				"deleteButton"
+			],
+			[
+				"goo",
+				"goodTasks"
+			],
+			[
+				"task",
+				"taskArray"
+			],
+			[
+				"calcula",
+				"calculateKarma"
+			],
+			[
+				"max",
+				"maxArchiveId"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"cal",
+				"calculateTaskPercentage"
+			],
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"arch",
+				"archTaskRow"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/Processing/Build Systems/Processing.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					""
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Re-run sketch"
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Run sketch (Processing 3 only)"
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Run sketch fullscreen"
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Export sketch as application"
+				],
+				[
+					"Packages/Processing/Build Systems/Processing.sublime-build",
+					"Kill running sketches"
+				]
+			],
+			[
+				"Packages/Processing/Build Systems/Processing.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "packa",
+		"selected_items":
+		[
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"package control: up",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"npm",
+				"npm: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"view",
+				"View In Browser"
+			],
+			[
+				"browser",
+				"File: Open In Browser - Testing Server"
+			],
+			[
+				"add",
+				"Package Control: Add Repository"
+			],
+			[
+				"robo",
+				"Set Syntax: RobotC"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"reomve",
+				"Package Control: Remove Package"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/site"
+	],
+	"file_history":
+	[
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/params.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/base.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/task.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/tree.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/main.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/background.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/manifest.json",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/sass/_fonts.scss",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/sass/main.scss",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/html/main.html",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/scrum",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/site/package.json",
+		"/C/Users/Administrator/Desktop/html5-boilerplate_v5.3.0/404.html",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/html/tutorial.html",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/css/main.css",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/css/tutorial.css",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/notebook.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/css/jquery-ui.css",
+		"/C/Users/Administrator/Google Drive/Code/cityTravel/openThis.html",
+		"/C/Users/Administrator/Desktop/LunarLander/index.html",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/production/manifest.json",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/bundle.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/save.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/node_modules/lodash/package.json",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/_require.js",
+		"/C/Users/Administrator/Desktop/npmSandbox/bundle.js",
+		"/C/Users/Administrator/Desktop/npmSandbox/main.html",
+		"/C/Users/Administrator/Desktop/react-tutorial-master/server.js",
+		"/C/Users/Administrator/Desktop/react-tutorial-master/public/index.html",
+		"/C/Users/Administrator/Desktop/react-tutorial-master/README.md",
+		"/C/Users/Administrator/Desktop/Pathfinder/Pathfinder-Java/src/main/java/jaci/pathfinder/followers/DistanceFollower.java",
+		"/C/Users/Administrator/Desktop/Pathfinder/Pathfinder-Java/src/main/java/jaci/pathfinder/modifiers/TankModifier.java",
+		"/C/Users/Administrator/Desktop/Pathfinder/Pathfinder-Java/src/main/java/jaci/pathfinder/Waypoint.java",
+		"/C/Users/Administrator/Desktop/Pathfinder/Pathfinder-Java/src/main/java/jaci/pathfinder/Trajectory.java",
+		"/C/Users/Administrator/Desktop/Pathfinder/Pathfinder-Java/src/main/java/jaci/pathfinder/PathfinderJNI.java",
+		"/C/Users/Administrator/Desktop/Pathfinder/Pathfinder-Java/src/main/java/jaci/pathfinder/Pathfinder.java",
+		"/C/Users/Administrator/Google Drive/Code/Habivator/js/popup.js",
+		"/C/Users/Administrator/Google Drive/Code/Habivator/js/task.js",
+		"/C/Users/Administrator/AppData/Local/Google/Chrome/User Data/Default/Extensions/ndchmakhfaakbkhnkdgambadneloplnn/1.0.4_0/manifest.json",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/lodash.core.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/altMain.js",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/roadmap.txt",
+		"/C/Users/Administrator/Desktop/2016 Competition Bot/src/org/usfirst/frc/team4253/robot/Robot.java",
+		"/C/Users/Administrator/Desktop/2016 Competition Bot/src/org/usfirst/frc/team4253/robot/PIDHandler.java",
+		"/C/Users/Administrator/workspace/FRC 2016 4253/src/org/usfirst/frc/team4253/robot/Robot.java",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/css/hover-min.css",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/css/hover.css",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/node_modules/hover.css/index.html",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/js/temp.js",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/AlignTab/AlignTab.sublime-settings",
+		"/C/Users/Administrator/AppData/Local/Google/Chrome/User Data/Default/Extensions/mnjdjjiobjicmlhnjlogfgbibihjhkeo/4.0.0_0/manifest.json",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/User/View In Browser.sublime-settings",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/View In Browser/View In Browser.sublime-settings",
+		"/C/Users/Administrator/Google Drive/Code/Trailblazer/html/advisor.html",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Administrator/Google Drive/12grade/Engineering/ROV/ROV 2016/EE/code/PC_SIDE/build-tmp/source/PC_SIDE.java",
+		"/C/Users/Administrator/Google Drive/12grade/Engineering/ROV/ROV 2016/EE/code/PC_SIDE/calculationFunctions.pde",
+		"/C/Users/Administrator/Google Drive/12grade/Engineering/ROV/ROV 2016/EE/code/PC_SIDE/PC_SIDE.pde",
+		"/C/Users/Administrator/Google Drive/12grade/Engineering/ROV/ROV 2016/EE/code/PC_SIDE/comPort.pde",
+		"/C/Users/Administrator/Google Drive/Code/MAI/index.html",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/User/BufferScroll.sublime-settings",
+		"/C/Users/Administrator/workspace/FRC 2016 4253/src/org/usfirst/frc/team6/robot/PIDHandler.java",
+		"/C/Users/Administrator/workspace/FRC 2016 4253/src/org/usfirst/frc/team6/robot/ContourStruct.java",
+		"/C/Users/Administrator/workspace/FRC 2016 4253/src/org/usfirst/frc/team6/robot/Robot.java",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/BufferScroll/BufferScroll.sublime-settings",
+		"/C/Users/Administrator/workspace/FRC 2016 4253/src/org/usfirst/frc/team6/robot/LineStruct.java",
+		"/C/Users/Administrator/AppData/Roaming/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Users/Administrator/AppData/Local/Temp/Temp1__p_poe_edgar_allan_p74mu.zip/index.html",
+		"/C/Users/Administrator/wpilib/java/current/javadoc/allclasses-frame.html",
+		"/C/Users/Administrator/Desktop/TestCode/src/org/usfirst/frc/team2222/robot/Robot.java",
+		"/C/Users/Administrator/Desktop/ROV/_2014/ROV_2014/ROV_2014.ino",
+		"/C/Users/Administrator/Desktop/ROV/_2014/ROV_2014/definitions.h",
+		"/C/Users/Administrator/Desktop/pi/new1.py",
+		"/C/Users/Administrator/Google Drive/Code/trevor/main.js",
+		"/C/Users/Administrator/Google Drive/Code/trevor/blank.html",
+		"/C/Users/Administrator/Google Drive/Code/trevor/manifest.json",
+		"/C/Users/Administrator/Desktop/pi/oldHID.py",
+		"/C/Users/Administrator/Desktop/pi/newHID.py",
+		"/C/Users/Administrator/Desktop/pi/test.py",
+		"/C/Users/Administrator/Desktop/pi/new.py",
+		"/D/ZXZs-Blackmarket-Mod.zip.html",
+		"/C/Users/Administrator/Desktop/4194E/Net Competition.c",
+		"/C/Users/Administrator/Desktop/blank_ntp/blank.html",
+		"/C/Users/Administrator/Desktop/4194E/Net Head.h",
+		"/C/xampp/htdocs/homepage.php",
+		"/C/Users/Administrator/Desktop/pi/hidexample.py",
+		"/C/xampp/htdocs/modeling.php",
+		"/C/xampp/htdocs/attributions.php",
+		"/C/xampp/htdocs/wetlab.php",
+		"/C/xampp/htdocs/Parts.php",
+		"/C/xampp/htdocs/project.php",
+		"/C/xampp/htdocs/human_practice.php",
+		"/C/xampp/htdocs/collaborations.php",
+		"/C/xampp/htdocs/notebook.php",
+		"/C/xampp/htdocs/achievements.php",
+		"/C/xampp/htdocs/compiled.css",
+		"/C/xampp/htdocs/navigation.php",
+		"/C/xampp/htdocs/team.php",
+		"/C/xampp/htdocs/design.php",
+		"/C/xampp/htdocs/project_overview.php",
+		"/C/xampp/htdocs/safety.php",
+		"/C/xampp/htdocs/static/bootstrap.css",
+		"/C/Users/Administrator/Desktop/slider-master/examples-jquery/slider-with-caption.source.html",
+		"/C/Users/Administrator/Desktop/slider-master/js/jssor.js",
+		"/C/xampp/htdocs/head.php",
+		"/C/Users/Administrator/Desktop/slider-master/skin/bullet-12.source.html",
+		"/C/Users/Administrator/Desktop/slider-master/examples-jquery/slider-with-bullet-navigator.source.html",
+		"/C/Users/Administrator/Desktop/slider-master/js/jssor.slider.js",
+		"/C/xampp/htdocs/static/field.js",
+		"/C/Users/Administrator/AppData/Local/Temp/7zOC7E1D92C/Neuron.java",
+		"/C/Users/Administrator/AppData/Local/Temp/7zOC7EDA44C/main.java",
+		"/C/xampp/htdocs/footer.php",
+		"/C/xampp/htdocs/homepage.less",
+		"/C/xampp/htdocs/medals.php",
+		"/C/xampp/htdocs/index.html",
+		"/C/xampp/htdocs/static/field_homepage.js",
+		"/C/xampp/htdocs/jquery-2.1.3.min.js",
+		"/C/xampp/htdocs/static/slidesjs/jquery.slides.js",
+		"/C/xampp/htdocs/bootstrap.min.js",
+		"/C/xampp/htdocs/static/bootstrap.min.css",
+		"/C/xampp/htdocs/tile.js",
+		"/C/xampp/htdocs/project_abstract.php",
+		"/C/Users/Administrator/Google Drive/Bloks/manifest.json",
+		"/C/Users/Administrator/Desktop/playBloks.github.io/index.html",
+		"/C/Users/Administrator/Desktop/playBloks.github.io/Blocs.pde",
+		"/C/xampp/htdocs/overview.php",
+		"/C/xampp/htdocs/research.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 100.0,
+		"where_history":
+		[
+			"C:\\Users\\Administrator\\Google Drive\\Code\\Trailblazer\\js",
+			"<current file>,C:\\Users\\Administrator\\Google Drive\\Code\\Trailblazer\\js",
+			"<current file>,<open folders>",
+			"<current file>",
+			"C:\\Users\\Administrator\\Google Drive\\12grade\\Engineering\\ROV\\ROV 2016\\EE\\code\\PC_SIDE",
+			"<current file>",
+			"<current file>,<open folders>",
+			"<current file>",
+			"<current file>,C:\\xampp\\htdocs",
+			"<current file>",
+			"C:\\xampp\\htdocs"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"bob",
+			"status",
+			"submode",
+			"subMode",
+			"class",
+			"flip_check",
+			"top",
+			"input",
+			"addtask",
+			"class",
+			"reactdom.r",
+			"reactdom",
+			"input",
+			"expand_",
+			"subpage",
+			"pushNodeTo",
+			"expand_card",
+			"cup_sub_title",
+			"console",
+			"input",
+			"background",
+			"ont-size",
+			"gen_boxes",
+			"setBaseOnclicks",
+			"resetday",
+			"reset",
+			"push",
+			"refresh_",
+			"findnode",
+			"margin",
+			"importa",
+			"greypage",
+			"import_card",
+			"createChild",
+			"input",
+			"updateName",
+			"name",
+			"note",
+			"cup_sub",
+			"load",
+			"import_c",
+			"load",
+			"tr",
+			"load",
+			"storage",
+			"treenode",
+			"findno",
+			"dataonly",
+			"setup",
+			"TreeNode",
+			"setup",
+			"treenode",
+			"this",
+			"layer",
+			"reset",
+			"parentid",
+			"set",
+			"nextId",
+			"set_name",
+			"Node",
+			"set_name",
+			"flip_check",
+			"refresh",
+			"setonclick",
+			"gen_card",
+			"addToChildren",
+			"createChild",
+			"createchild",
+			"create",
+			"createchil",
+			"addToChildre",
+			"gen_card_inner",
+			"gen_box",
+			"gen_bo",
+			"cup_sub",
+			"loadall",
+			"load",
+			"nodearray",
+			"nodearray(",
+			"nodeArray",
+			"loadall",
+			"saveall",
+			"save",
+			"resetDay",
+			"sub_add_new",
+			"sub_add_",
+			"base",
+			"n.next",
+			"taskname",
+			"del",
+			"saveall",
+			"foot",
+			"tfoot",
+			"border:none",
+			"font-siz",
+			"setonclick",
+			"setOnclick",
+			"update_name",
+			"nextNodeId",
+			"loadAllNodes",
+			"saveAllNodes",
+			"pushcate",
+			"setNodeOnclicks",
+			"findNode",
+			"nextAvailableId",
+			"set_onclicks",
+			"nodeQuery",
+			"nodequery",
+			"loadAllNodes",
+			"load_all",
+			"save_all",
+			"console",
+			"findNode",
+			"flip_check",
+			"];",
+			"nodequery",
+			"set_onclicks",
+			"findNode",
+			"set_on",
+			"findNode",
+			"divheadgen",
+			"divHeadGen",
+			"divheadgen",
+			"japanese",
+			"nodequery",
+			"subMode",
+			"subpageId",
+			"currentCateg"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"N.updateName",
+			"N.nextId",
+			"N.loadAll",
+			"N.saveAll",
+			"N.setOnclick",
+			"setOnclick",
+			"N.find",
+			"nextNodeId",
+			"setNodeOnclicks",
+			"nodeArray",
+			"loadAllNodes",
+			"saveAllNodes",
+			"STATUS.subMode",
+			"STATUS.subpageId",
+			"STATUS.categ",
+			"STYLE",
+			"_style_.line",
+			"_style_.botPartition",
+			"_style_.line",
+			"logs",
+			"logs_length",
+			"anglePid_used",
+			"BBa",
+			"h3",
+			"</b></h4>",
+			"<h4><b>",
+			"</b><h4>",
+			"<h4><b>",
+			"BBa",
+			"BBA",
+			"<i>E. coli</i>",
+			"<a href = \"http://parts.igem.org/Part:BBa_ I765001\">BBa_ I765001</a>",
+			"<a href = \"http://parts.igem.org/Part:BBa_1610102\">BBa_1610102</a>",
+			"<a href = \"http://parts.igem.org/Part:BBa_E0840\">BBa_E0840</a>",
+			"<a href = \"http://parts.igem.org/Part:BBa_K1510009\">BBa_K1510009</a>",
+			"<a href = \"http://parts.igem.org/Part:BBa_K1610105\">BBa_K1610105</a>",
+			"<a href = \"http://parts.igem.org/Part:BBa_B0015\">Bba_B0015</a>",
+			"<a href = \"http://parts.igem.org/Part:BBa_B0034\">Bba_B0034</a>",
+			"<a href = \"http://parts.igem.org/Part:BBa_K608351\">Bba_K608351</a>",
+			"<i>et al.</i>",
+			"\"",
+			"sm",
+			"Lato",
+			"stripeCount",
+			"ctx",
+			"15",
+			"2015",
+			"week2",
+			"dayMode",
+			"weekMode"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.textarea":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "Packages/Processing/Build Systems/Processing.sublime-build",
+	"project": "tbzsite.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"back",
+				"js\\background.js"
+			],
+			[
+				"fonts",
+				"sass\\_fonts.scss"
+			],
+			[
+				"para",
+				"js\\params.js"
+			],
+			[
+				"main.scss",
+				"sass\\main.scss"
+			],
+			[
+				"main.h",
+				"html\\main.html"
+			],
+			[
+				"main",
+				"css\\main.css"
+			],
+			[
+				"scr",
+				"scrum"
+			],
+			[
+				"tree",
+				"js\\tree.js"
+			],
+			[
+				"noteb",
+				"js\\notebook.js"
+			],
+			[
+				"base",
+				"js\\base.js"
+			],
+			[
+				"main.js",
+				"js\\main.js"
+			],
+			[
+				"param",
+				"js\\params.js"
+			],
+			[
+				"main.css",
+				"css\\main.css"
+			],
+			[
+				"home",
+				"homepage.php"
+			],
+			[
+				"model",
+				"modeling.php"
+			],
+			[
+				"hum",
+				"human_practice.php"
+			],
+			[
+				"attr",
+				"attributions.php"
+			],
+			[
+				"col",
+				"collaborations.php"
+			],
+			[
+				"mo",
+				"modeling.php"
+			],
+			[
+				"project",
+				"project.php"
+			],
+			[
+				"part",
+				"Parts.php"
+			],
+			[
+				"we",
+				"wetlab.php"
+			],
+			[
+				"attri",
+				"attributions.php"
+			],
+			[
+				"achie",
+				"achievements.php"
+			],
+			[
+				"wetl",
+				"wetlab.php"
+			],
+			[
+				"nav",
+				"navigation.php"
+			],
+			[
+				"note",
+				"notebook.php"
+			],
+			[
+				"compi",
+				"compiled.css"
+			],
+			[
+				"navia",
+				"navigation.php"
+			],
+			[
+				"team",
+				"team.php"
+			],
+			[
+				"hom",
+				"homepage.php"
+			],
+			[
+				"coll",
+				"collaborations.php"
+			],
+			[
+				"human",
+				"human_practice.php"
+			],
+			[
+				"pract",
+				"human_practice.php"
+			],
+			[
+				"attribu",
+				"attributions.php"
+			],
+			[
+				"par",
+				"Parts.php"
+			],
+			[
+				"parts",
+				"Parts.php"
+			],
+			[
+				"notebook",
+				"notebook.php"
+			],
+			[
+				"na",
+				"navigation.php"
+			],
+			[
+				"mode",
+				"modeling.php"
+			],
+			[
+				"wel",
+				"wetlab.php"
+			],
+			[
+				"navi",
+				"navigation.php"
+			],
+			[
+				"proje",
+				"project.php"
+			],
+			[
+				"wet",
+				"wetlab.php"
+			],
+			[
+				"achi",
+				"achievements.php"
+			],
+			[
+				"colla",
+				"collaborations.php"
+			],
+			[
+				"projec",
+				"project.php"
+			],
+			[
+				"pro",
+				"project_overview.php"
+			],
+			[
+				"safety",
+				"safety.php"
+			],
+			[
+				"at",
+				"attributions.php"
+			],
+			[
+				"comp",
+				"compiled.css"
+			],
+			[
+				"css",
+				"static\\bootstrap.css"
+			],
+			[
+				"tea",
+				"team.php"
+			],
+			[
+				"proj",
+				"project.php"
+			],
+			[
+				"head",
+				"head.php"
+			],
+			[
+				"compil",
+				"compiled.css"
+			],
+			[
+				"js",
+				"static\\field.js"
+			],
+			[
+				"foot",
+				"footer.php"
+			],
+			[
+				"mod",
+				"modeling.php"
+			],
+			[
+				"foote",
+				"footer.php"
+			],
+			[
+				"hoe",
+				"homepage.less"
+			],
+			[
+				"saf",
+				"safety.php"
+			],
+			[
+				"boot",
+				"static\\bootstrap.css"
+			],
+			[
+				"bootstrap",
+				"static\\bootstrap.css"
+			],
+			[
+				"wetlab",
+				"wetlab.php"
+			],
+			[
+				"php",
+				"navigation.php"
+			],
+			[
+				"meda",
+				"medals.php"
+			],
+			[
+				"index",
+				"index.html"
+			],
+			[
+				"huma",
+				"human_practice.php"
+			],
+			[
+				"homepa",
+				"homepage.php"
+			],
+			[
+				"footer",
+				"footer.php"
+			],
+			[
+				"achieve",
+				"achievements.php"
+			],
+			[
+				"field",
+				"static\\field.js"
+			],
+			[
+				"slides",
+				"static\\slidesjs\\jquery.slides.js"
+			],
+			[
+				"jquery.min",
+				"jquery-2.1.3.min.js"
+			],
+			[
+				"bootstra",
+				"static\\bootstrap.css"
+			],
+			[
+				"boo",
+				"static\\bootstrap.css"
+			],
+			[
+				"boots",
+				"static\\bootstrap.css"
+			],
+			[
+				"bootstr",
+				"bootstrap.min.js"
+			],
+			[
+				"wetla",
+				"wetlab.php"
+			],
+			[
+				".js",
+				"tile.js"
+			],
+			[
+				"field.js",
+				"static\\field_homepage.js"
+			],
+			[
+				"fieldjs",
+				"static\\field.js"
+			],
+			[
+				"practic",
+				"human_practice.php"
+			],
+			[
+				"auto",
+				"auto list"
+			],
+			[
+				"medals",
+				"medals.php"
+			],
+			[
+				"pic",
+				"pic list"
+			],
+			[
+				"medal",
+				"medals.php"
+			],
+			[
+				"sa",
+				"safety.php"
+			],
+			[
+				"modelin",
+				"modeling.php"
+			],
+			[
+				"safet",
+				"safety.php"
+			],
+			[
+				"com",
+				"compiled.css"
+			],
+			[
+				"navig",
+				"navigation.php"
+			],
+			[
+				"homep",
+				"homepage.less"
+			],
+			[
+				"naviga",
+				"navigation.php"
+			],
+			[
+				"style",
+				"style.less"
+			],
+			[
+				"safe",
+				"safety.php"
+			],
+			[
+				"hope",
+				"homepage.php"
+			],
+			[
+				"compiled",
+				"compiled.css"
+			],
+			[
+				"",
+				"C:\\Users\\Administrator\\Desktop\\fieldb.js"
+			],
+			[
+				"modeli",
+				"modeling.php"
+			],
+			[
+				"compile",
+				"compiled.css"
+			],
+			[
+				"less",
+				"style.less"
+			],
+			[
+				"todc",
+				"todc-bootstrap\\css\\todc-bootstrap.min.css"
+			],
+			[
+				"bootstrapmin.css",
+				"static\\bootstrap.min.css"
+			],
+			[
+				"find",
+				"Find Results"
+			],
+			[
+				"modeling",
+				"modeling.php"
+			],
+			[
+				"head.",
+				"head.php"
+			],
+			[
+				"homepage.php",
+				"homepage.php"
+			],
+			[
+				"homepage.less",
+				"homepage.less"
+			],
+			[
+				"project_a",
+				"project_abstract.php"
+			],
+			[
+				"homepage",
+				"homepage.php"
+			],
+			[
+				"les",
+				"homepage.less"
+			],
+			[
+				".less",
+				"homepage.less"
+			],
+			[
+				"project_over",
+				"project_overview.php"
+			],
+			[
+				"head.php",
+				"head.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\Users\\Administrator\\Google Drive\\11grade\\Habivator\\Habivator.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 186.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

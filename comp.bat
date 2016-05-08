@@ -1,2 +1,1 @@
-browserify -t [ babelify --presets [ react ] ] js/main.js -o js/bundle.js
-sass --watch sass:css
+watchify -t [ babelify --presets [ react ] ] js/main.js -o js/bundle.js -v

@@ -237,10 +237,16 @@ nodeArray = function(_categ) {
     return mainNode[_categ];
 }
 
+updateCategBar = function() {
+    for (var i = 0; i < mainNode.length; i++) {
+        $("#prog_" + (i + 1)).css("width", (1-N.categPercentage(i)) * 100 + "%");
+    }
+}
 
 chrome.storage.local.get('mainNode', function(result) {
     N.loadAll(result.mainNode);
     pushCategToBoard(STATUS.categ);
+    updateCategBar();
 });
 
 chrome.storage.local.get('taskData', function(result) {

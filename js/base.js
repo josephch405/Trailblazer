@@ -39,6 +39,10 @@ divHeadGen = function(params, styleParams) {
     return text;
 }
 
+divClass = function(className){
+    return divHeadGen({"class": className});
+}
+
 /**
  * MISC
  * Converts boolean to its appropriate button class
