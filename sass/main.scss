@@ -238,16 +238,16 @@ div input,
 }
 
 #bar_left {
-    @include size(50%, 70%);
-    left: -47%;
+    @include size(30%, 70%);
+    left: -27%;
     top: 20%;
     overflow: hidden;
     background-color: #FFA500;
 }
 
 #bar_right {
-    @include size(50%, 70%);
-    right: -47%;
+    @include size(30%, 70%);
+    right: -27%;
     top: 20%;
     background-color: #FFA500
 }
@@ -261,11 +261,11 @@ div input,
 }
 
 .slideRight:hover {
-    -webkit-transform: translate(93%, 0);
+    -webkit-transform: translate(90%, 0);
 }
 
 .slideLeft:hover {
-    -webkit-transform: translate(-93%, 0);
+    -webkit-transform: translate(-90%, 0);
 }
 
 .bar {

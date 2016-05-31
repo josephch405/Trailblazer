@@ -197,17 +197,17 @@ div input,
   padding-top: .5%; }
 
 #bar_left {
-  width: 50%;
+  width: 30%;
   height: 70%;
-  left: -47%;
+  left: -27%;
   top: 20%;
   overflow: hidden;
   background-color: #FFA500; }
 
 #bar_right {
-  width: 50%;
+  width: 30%;
   height: 70%;
-  right: -47%;
+  right: -27%;
   top: 20%;
   background-color: #FFA500; }
 
@@ -218,10 +218,10 @@ div input,
   -webkit-transform: translate(0, -85%) scale(1.2, 1.2); }
 
 .slideRight:hover {
-  -webkit-transform: translate(93%, 0); }
+  -webkit-transform: translate(90%, 0); }
 
 .slideLeft:hover {
-  -webkit-transform: translate(-93%, 0); }
+  -webkit-transform: translate(-90%, 0); }
 
 .bar {
   box-shadow: 0 0 4px 0 black;

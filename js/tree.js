@@ -220,7 +220,6 @@ N = {
                  } code for eliminating input by regex*/
                 N.updateName(_id, this.value);
                 N.saveAll();
-                console.log("hi");
             });
 
             $("#card_" + _id).find(".but_ed").click(function() {
@@ -235,7 +234,8 @@ N = {
                     N.updateName(STATUS.subpageId, this.value);
                     N.saveAll();
                 });
-
+                console.log(STATUS.subpageId);
+                console.log(N.find(STATUS.subpageId));
                 $("#sub_checkDiv").removeClass(bToCClass(!N.find(STATUS.subpageId).checked));
                 $("#sub_checkDiv").addClass(bToCClass(N.find(STATUS.subpageId).checked));
                 $("#sub_checkDiv").prop('onclick', null).off('click');

@@ -73,6 +73,7 @@ TaskName = React.createClass({
     render: function() {
         return (
             <input 
+            maxLength = '30'
             type = 'text' 
             value = {this.state.value}
             onChange = {this.handleChange}/>

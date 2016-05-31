@@ -300,11 +300,11 @@ delete_card = function (_id) {
  * @return {[type]}     [description]
  */
 expand_card = function (_id) {
+    STATUS.subpageId = _id;
     greypage(true);
     subpage(true);
     STATUS.subMode = true;
     $("#cup_sub_title").val(N.find(_id).name);
-    STATUS.subpageId = _id;
     pushNodeToSub(N.find(_id));
     N.saveAll();
     return -1;
@@ -337,9 +337,10 @@ pushCategToBoard = function (_categ) {
 pushNodeToSub = function (_node) {
     $("#cup_sub").html(subPlusCardText);
     //while($("#cup_main").html != ""){}
+    console.log(_node);
     var nodes = _node.children;
     for (var i = 0; i < nodes.length; i++) $(N.gen_card(nodes[i])).insertBefore($("#sub_add_card"));
-    for (var i = 0; i < nodes.length; i++) N.setOnclick(nodes[i].id);
+    N.setOnclick(_node);
 
     $('#sub_add_card').click(function () {
         sub_add_new_card(N.find(STATUS.subpageId));
@@ -459,6 +460,7 @@ chrome.storage.local.get('taskData', function (result) {
 });
 
 setBaseOnclicks();
+updateCategBar();
 
 },{"./base.js":2,"./notebook.js":4,"./params.js":5,"./task.js":6,"./tree.js":7,"jquery":9,"jquery-ui":8,"lodash":10,"react":176,"react-dom":11}],4:[function(require,module,exports){
 /**
@@ -659,6 +661,7 @@ TaskName = React.createClass({
     },
     render: function () {
         return React.createElement('input', {
+            maxLength: '30',
             type: 'text',
             value: this.state.value,
             onChange: this.handleChange });
@@ -928,7 +931,6 @@ N = {
                  } code for eliminating input by regex*/
                 N.updateName(_id, this.value);
                 N.saveAll();
-                console.log("hi");
             });
 
             $("#card_" + _id).find(".but_ed").click(function () {
@@ -943,7 +945,8 @@ N = {
                     N.updateName(STATUS.subpageId, this.value);
                     N.saveAll();
                 });
-
+                console.log(STATUS.subpageId);
+                console.log(N.find(STATUS.subpageId));
                 $("#sub_checkDiv").removeClass(bToCClass(!N.find(STATUS.subpageId).checked));
                 $("#sub_checkDiv").addClass(bToCClass(N.find(STATUS.subpageId).checked));
                 $("#sub_checkDiv").prop('onclick', null).off('click');

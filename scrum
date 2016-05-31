@@ -19,17 +19,16 @@ SPRINT
 GOALS:
 
 THIS WEEK
-PUBLIC RELEASE
-1. WEBSITE - sketch design
-3. tutorial update
-
-NEXT WEEK
-3. suggestion view/daily planning
+1. suggestion view/daily planning
 	new pane
 	drag/drop functionality
-4. grand planning
+2. grand planning
 	mosaic
-5. move styling out of treenode
+3. move styling out of treenode
+4. WEBSITE - sketch design
+5. tutorial auto open + merge tutorial sections + move tutorial in
+6. try onclick opening of tabs
+8. confirm deletion
 
 NEXT WEEK
 6. task date
@@ -38,7 +37,7 @@ NEXT WEEK
 9. export save
 
 NEXT WEEK
-9. Consider multiple user model
+9. Backend?
 10. Notebook - tools like bullet points
 11. notebook typing slide glitch
 
@@ -132,3 +131,11 @@ Sample Card:
 	</div>
 
 </div>
+
+
+
+
+
+
+
+Hypothesis: 
