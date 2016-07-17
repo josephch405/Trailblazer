@@ -20,10 +20,18 @@
 
 html,
 body {
+    @include size(100vw, 100vh);
+    overflow: hidden;
     margin: 0px;
     font-family: "roboto";
-    background-color: #F0F0F0;
+    background-color: #5E5E5E;
     font-size: 0px;
+}
+
+body {
+    //background-image:url("../img/sky.jpg");
+    //background-size: cover;
+    //background-color:black;
 }
 
 div div,
@@ -32,11 +40,18 @@ div input,
 #greypage,
 #cup_sub_page,
 #cup_main_page,
+#settings_sub_page,
+#bgCanvas,
 .bar {
     position: absolute;
     z-index: 2;
     @include size(100%, 100%);
     box-sizing: border-box;
+}
+
+#bgCanvas {
+    z-index: 0;
+    background-color: #232323;
 }
 
 .inline {
@@ -46,14 +61,19 @@ div input,
 
 .card {
     box-shadow: 0 0 .5vh 0;
-    border-radius: 2%;
-    @include size(16vw, 32vh);
-    @include margin(1.5vh, 1.5vh, .8vw, .8vw);
+    //border-radius: 2%;
+    //border: black solid 2px;
+    @include size(16.5vw, 32vh);
+    @include margin(1vh, 1vh, .5vw, .5vw);
+    * {
+        font-size: 1.5vw;
+    }
 }
 
 #add_card,
 #sub_add_card {
     box-shadow: 0 0 2px 0px;
+    background-color: #FFFFFF;
     img {
         width: 80%;
         margin-left: 10%;
@@ -62,74 +82,94 @@ div input,
     }
 }
 
-.card * {
-    font-size: 3vh;
-}
-
 #bar_top {
-    height: 12%;
+    height: 8%;
     box-shadow: 0 0 6px 0px;
-    > div {
-        width: 33.3%;
-        text-align: center;
-    }
+    background-color: rgba(255,255,255,1);
 }
 
 .top_title {
     display: table;
     span {
-        font-size: 6vh;
+        font-size: 3vh;
         vertical-align: middle;
         display: table-cell;
     }
 }
 
+#categ_h {
+    width: 96vw;
+}
+
+#categ_e {
+    width: 4vw;
+    left: 96vw;
+    img {
+        width: 100%;
+    }
+}
+
+.top_,
+.top_s {
+    width: 12.5%;
+    text-align: center;
+    position: static;
+    float: left;
+}
+
 .top_ {
-    background-color: #9DCEFF;
-    box-shadow: 0 0 0 0;
     z-index: 2;
     &:hover {
-        background-color: #B7DBFF;
+        background-color: #DDDDDD;
     }
     span {
-        color: #007FFF;
+        color: #000000;
     }
 }
 
 .top_s {
-    background-color: #3399FF;
-    //box-shadow: 0 0 6px 0;
     z-index: 3;
+    background-color: rgba(200,200,200,.5);
     &:hover {
-        background-color: #6AB4FF;
+        //background-color: #585858;
     }
     span {
-        color: #FFFFFF;
+        color: #000000;
     }
 }
 
 #cup_main_page {
-    @include size(92%, 82%);
-    top: 10%;
+    @include size(92%, 96%);
+    top: 4%;
     left: 4%;
     z-index: 1;
-    box-shadow: 0 0 6px 0;
-    background-color: #FFFFFF;
+    //box-shadow: 0 0 6px 0;
+    background-color: #00000000;
 }
 
 #cup_sub_page {
     @include size(74vw, 86%);
     top: 5%;
     left: 12vw;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 10px 0 #000000;
+    z-index: 4;
+    -webkit-transition: all .2s ease-in-out;
+}
+
+#settings_sub_page {
+    @include size(74vw, 86%);
+    top: 5%;
+    left: 12vw;
     background: #FFFFFF;
     box-shadow: 0 0 10px 0 #000000;
-    z-index: 2;
+    z-index: 4;
     -webkit-transition: all .2s ease-in-out;
 }
 
 #cup_main {
-    @include size(96%, 86%);
-    top: 8%;
+    @include size(96%, 70%);
+    top: 14%;
     left: 2%;
     overflow: hidden;
 }
@@ -150,6 +190,8 @@ div input,
     padding: 2%;
     border: none;
     outline: none;
+    background-color: "rgba(0,0,0,0)";
+    color: #000000;
 }
 
 #arrowOut {
@@ -159,6 +201,7 @@ div input,
 
 #greypage {
     background-color: rgba(0, 0, 0, .25);
+    z-index: 3;
 }
 
 .fade {
@@ -168,7 +211,7 @@ div input,
     overflow: hidden;
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
-    -webkit-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.1s;
     -webkit-transition-property: color, background-color;
 }
 
@@ -208,33 +251,41 @@ div input,
 .but_ed {
     top: 20%;
     height: 80%;
-    background-color: #00000000;
+    background-color: #FFFFFF;
     &:hover {
-        background-color: #FFB22B;
+        background-color: #FFC560;
     }
 }
 
 .but_del {
     top: 0%;
-    background-color: #00000000;
+    background-color: #FFFFFF;
     &:hover {
-        background-color: #FF0000;
+        background-color: #FF4E4E;
     }
 }
 
 .slide,
 .slide * {
-    -webkit-transition: all .1s ease-in-out;
+    -webkit-transition: all .08s ease-in-out;
     text-align: center;
 }
 
 #bar_bottom {
-    @include size(40%, 70%);
+    @include size(60%, 70%);
     bottom: -60%;
-    left: 30%;
+    left: 20%;
     background-color: #4E4E4E;
-    z-index: 3;
+    z-index: 2;
     padding-top: .5%;
+    &:hover {
+        background-color: #6F6F6F;
+    }
+    ;
+    #reset_btn {
+        -webkit-filter: drop-shadow(0 0 4px #222);
+        height: 8vh;
+    }
 }
 
 #bar_left {
@@ -242,14 +293,14 @@ div input,
     left: -27%;
     top: 20%;
     overflow: hidden;
-    background-color: #FFA500;
+    background-color: #FFFFFF;
 }
 
 #bar_right {
     @include size(30%, 70%);
     right: -27%;
     top: 20%;
-    background-color: #FFA500
+    background-color: #FFFFFF;
 }
 
 .bar > h2 {
@@ -257,21 +308,21 @@ div input,
 }
 
 .slideUp:hover {
-    -webkit-transform: translate(0, -85%) scale(1.2, 1.2);
+    //-webkit-transform: translate(0, -85%) scale(1.2, 1.2);
 }
 
 .slideRight:hover {
-    -webkit-transform: translate(90%, 0);
+    -webkit-transform: translate(89%, 0);
 }
 
 .slideLeft:hover {
-    -webkit-transform: translate(-90%, 0);
+    -webkit-transform: translate(-89%, 0);
 }
 
 .bar {
     box-shadow: 0 0 4px 0 black;
     font-size: 2.5vh;
-    color: white;
+    color: #000000;
 }
 
 .ui-tooltip {
@@ -304,7 +355,7 @@ div input,
 
 .task {
     height: 3vh;
-    border-bottom: orange solid .5vh;
+    border-bottom: #DDDDDD solid .5vh;
     background-color: white;
 }
 
@@ -323,7 +374,7 @@ div input,
     text-align: left;
     border: none;
     outline: none;
-    font-size: 3vh;
+    font-size: 1.5vw;
 }
 
 .addTask {
@@ -371,6 +422,17 @@ div input,
     color: white;
 }
 
+#settings {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    padding: 10px;
+    font-size: 2vh;
+    background-color: #4E4E4E;
+    color: white;
+    z-index: 3;
+}
+
 #sub_checkDiv {
     top: 2vh;
     left: 8vw;
@@ -379,7 +441,7 @@ div input,
 }
 
 .card_t {
-    height: 30%;
+    height: 20%;
     box-shadow: 0px 2px 2px -2px;
     z-index: 3;
     border-bottom: solid 1px #A3A3A3;
@@ -388,27 +450,32 @@ div input,
 .card_t input {
     text-align: center;
     padding-top: 0%;
-    width: 94%;
+    width: 96%;
     border: none;
     outline: none
 }
 
 .card_ctrl {
-    width: 6%;
-    left: 94%;
+    width: 4%;
+    left: 96%;
     border-left: solid 1px #A3A3A3;
 }
 
 .card_b {
-    height: 70%;
-    top: 30%;
+    height: 80%;
+    top: 20%;
 }
 
-.prog{
-    left:0;
-    bottom:0;
-    height:0;
-    width:100%;
-    border-bottom: solid 4px #FFFFFF;
+.prog {
+    left: 0;
+    bottom: 0;
+    height: 0;
+    width: 100%;
+    border-bottom: solid 4px #000000;
     -webkit-transition: width .2s;
+}
+
+.ui-tooltip {
+    border-width: 0 !important;
+    border-radius: 1px;
 }

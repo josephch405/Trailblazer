@@ -1,8 +1,12 @@
+mainNode = [
+    [],
+    [],
+    []
+];
+
 N = {
     /**
      * Creates new tree-formatted object based on parameters
-     * @param  Object input Filtered for existence
-     * @return Object       Output object
      */
     create: function(input) {
         var _node = {
@@ -85,6 +89,8 @@ N = {
      * @param  int _categ   Category number to load to
      * @return NULL
      */
+
+
     loadCateg: function(_obj, _categ) {
         for (var i in _obj)
             nodeArray(_categ).push(N.create(_obj[i]));
@@ -96,7 +102,7 @@ N = {
             counter += mainNode[index][i].checked ? 1 : 0;
         if (mainNode[index].length == 0)
             return 1;
-        return counter/mainNode[index].length;
+        return counter / mainNode[index].length;
     },
     /**
      * Uses loadCateg to load all three categories
@@ -362,14 +368,83 @@ N = {
             return "rn";
         return "rr";
     },
-    JSONexport: function(_node) {
-        _node = N.find(_node);
-        var returnText = JSON.stringify(_node);
-        return returnText;
-    },
-    JSONimport: function(_node, string) {
-        _node = N.find(_node);
-        tempObject = JSON.parse(string);
-        _node = N.create(tempObject);
+    render: function() {
+        ReactDOM.render(
+            <TreeMain data={mainNode} />,
+            document.getElementById('cup_main')
+        );
     }
 }
+
+
+TreeMain = React.createClass({
+    render: function() {
+        var taskNodes = !this.props.data ? "" : this.props.data.map(function(task) {
+            return (
+                <Leaf data = {task}/>
+            );
+        });
+
+        return ([
+            { taskNodes },
+            <AddNew_Button />
+        ]);
+    }
+});
+
+Leaf = React.createClass({
+    getInitialState: function() {
+        return this.props.data;
+    },
+    render: function() {
+        var idString = card_ + this.state.id;
+        var classString = 'inline card ' + N.valueToColorClass(this.state.value);
+        return (
+            <div id = {idString} className = {classString}>
+                <LeafTop data = {this.props.data}/>
+                <LeafBottom data = {this.props.data}/>
+            </div>
+        );
+    }
+});
+
+LeafTop = React.createClass({
+    getInitialState: function() {
+        return this.props.data;
+    },
+    render: function() {
+        return (
+            <div className = "card_t">
+            </div>
+        )
+    }
+});
+
+LeafNameInput = React.createClass({
+    getInitialState: function() {
+        return {
+            name: this.props.name
+        }
+    },
+    handleChange: function(event) {
+        this.setState({ name: event.target.value });
+        //N.saveAll();
+    },
+    render: function() {
+        return (
+            <input maxLength="20" 
+            value = {this.state.name}
+            onChange = {this.handleChange}/>
+        )
+    }
+})
+
+AddNew_Button = React.createClass({
+    render: function() {
+        return (
+            <div id="add_card" class="inline card">
+                <img src="..\img\plus.png"/>
+            </div>
+        )
+    }
+})

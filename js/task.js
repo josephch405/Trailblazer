@@ -60,21 +60,18 @@ Task = React.createClass({
 
 TaskName = React.createClass({
     getInitialState: function() {
-        return { value: "" };
-    },
-    componentDidMount: function() {
-        this.setState({ value: this.props.text });
+        return { value: this.props.text };
     },
     handleChange: function(event) {
         this.setState({ value: event.target.value });
         findById(taskData, this.props.id).text = event.target.value;
+        //this actually updates the data - need better solution
         T.saveAll();
     },
     render: function() {
         return (
             <input 
             maxLength = '30'
-            type = 'text' 
             value = {this.state.value}
             onChange = {this.handleChange}/>
         );

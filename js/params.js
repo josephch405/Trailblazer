@@ -73,11 +73,6 @@ subPlusCardText = '<div id = "sub_add_card" class = "inline card"><img src = "..
 STATUS = {
     "categ": 1,
     "subpageId": -1,
-    "subMode": false
+    "subMode": false,
+    "settingsMode": false
 };
-
-mainNode = [
-    [],
-    [],
-    []
-];

@@ -39,8 +39,8 @@ divHeadGen = function(params, styleParams) {
     return text;
 }
 
-divClass = function(className){
-    return divHeadGen({"class": className});
+divClass = function(className) {
+    return divHeadGen({ "class": className });
 }
 
 /**
@@ -90,6 +90,8 @@ setBaseOnclicks = function() {
     $('#arrowOut').click(backButton);
 
     $('#tutorial').click(openTutorial);
+
+    $('#settings').click(openSettings);
 }
 
 /**
@@ -111,4 +113,18 @@ openTutorial = function() {
     chrome.app.window.create('/html/tutorial.html', {
         'state': "maximized"
     });
+}
+
+
+JSONexport = function(_node) {
+    var returnText = JSON.stringify(_node);
+    return returnText;
+}
+
+JSONimport = function(string) {
+    return JSON.parse(string);
+}
+
+clampNum = function(min, num, max){
+     return Math.min(Math.max(num, min), max);
 }

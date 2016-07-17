@@ -1,30 +1,25 @@
 /**
  *TRAIBLAZER - Tracks Work, Hobbies, Habits, and Tasks
- * Function categories:
- * SAVE
- * ATTACH
- * GET
- * TREE
- * MISC
+ *2016 Jo Chuang
  */
 
+//external packages
 React = require('react');
 ReactDOM = require('react-dom');
-
 _ = require('lodash');
 $ = require('jquery');
-
 require("jquery-ui");
+
+//internal packages for organization
 require("./params.js");
 require("./base.js");
 require("./tree.js");
 require("./task.js");
 require("./notebook.js");
+require("./save.js");
+require("./bgCanvas.js");
 
-/**
- * [add_new_card description]
- * @param {[type]} _array [description]
- */
+//Adds new Trail to inputted array, using next avaiblable ID
 add_new_card = function(_array) {
     var _id = N.nextId();
     _array.push(N.create({ "name": "New Task", "id": _id }));
@@ -33,11 +28,7 @@ add_new_card = function(_array) {
     N.saveAll();
 }
 
-/**
- * [sub_add_new_card description]
- * @param  {[type]} _node [description]
- * @return {[type]}       [description]
- */
+//Adds new subTrail to inputted Trail, using next available sub ID
 sub_add_new_card = function(_node) {
     var _id = N.nextChildId(_node.id);
     _node.children.push(N.create({ "name": "New Task", "id": _id }));
@@ -46,14 +37,11 @@ sub_add_new_card = function(_node) {
     N.saveAll();
 }
 
-/**
- * [delete_card description]
- * @param  {[type]} _id [description]
- * @return {[type]}     [description]
- */
+//deletes card with ID/sub ID, then SAVES
 delete_card = function(_id) {
     var done = false;
 
+    //TODO: optimize search
     for (var t in mainNode) {
         var _array = mainNode[t];
         for (var i in _array) {
@@ -81,11 +69,7 @@ delete_card = function(_id) {
     return 1;
 }
 
-/**
- * [expand_card description]
- * @param  {[type]} _id [description]
- * @return {[type]}     [description]
- */
+//expands Trail/subTrail to subpage, SAVES
 expand_card = function(_id) {
     STATUS.subpageId = _id;
     greypage(true);
@@ -97,12 +81,14 @@ expand_card = function(_id) {
     return -1;
 }
 
+//opens settings subpage
+openSettings = function() {
+    greypage(true);
+    settingsPage(true);
+    STATUS.settingsMode = true;
+}
 
-/**
- * [pushCategToBoard description]
- * @param  {[type]} _categ [description]
- * @return {[type]}        [description]
- */
+//pushes nodeArray(input) to main board, attaches tooltips
 pushCategToBoard = function(_categ) {
     $("#cup_main").html(plusCardText);
     var nodes = nodeArray(_categ);
@@ -117,11 +103,7 @@ pushCategToBoard = function(_categ) {
     attachTooltips();
 }
 
-/**
- * [pushNodeToSub description]
- * @param  {[type]} _node [description]
- * @return {[type]}       [description]
- */
+//used by expand_card, pushes input's children to HTML, attaches tooltips
 pushNodeToSub = function(_node) {
     $("#cup_sub").html(subPlusCardText);
     //while($("#cup_main").html != ""){}
@@ -138,36 +120,24 @@ pushNodeToSub = function(_node) {
     attachTooltips();
 }
 
-
-
-/**
- * [returnToMain description]
- * @return {[type]} [description]
- */
+//clears all subpage types and greypage, pushes categ according to STATUS, SAVES
 returnToMain = function() {
     greypage(false);
     subpage(false);
+    settingsPage(false);
     pushCategToBoard(STATUS.categ);
     STATUS.subMode = false;
+    STATUS.settingsMode = false;
     N.saveAll();
     return -1;
 }
 
-/**
- * ATTACH
- * Attaches jquery tooltips to boxes
- * Use whenever new boxes are added
- * @return {null}
- */
+//attaches tooltips to all .box
 attachTooltips = function() {
     $(".box").tooltip(STYLE.tooltip);
 }
 
-/**
- * [switchCateg description]
- * @param  {[type]} _target [description]
- * @return {[type]}         [description]
- */
+//uses pushCategToBoard, then updates categBar and STATUS
 switchCateg = function(_target) {
     pushCategToBoard(_target);
     $('#categ_' + (_target + 1)).toggleClass("top_");
@@ -177,11 +147,7 @@ switchCateg = function(_target) {
     STATUS.categ = _target;
 }
 
-/**
- * [greypage description]
- * @param  {[type]} _in [description]
- * @return {[type]}     [description]
- */
+//sets greypage display IO
 greypage = function(_in) {
     if (_in) {
         $("#greypage").css("display", "block");
@@ -192,18 +158,34 @@ greypage = function(_in) {
     }
 }
 
-/**
- * [subpage description]
- * @param  {[type]} _in [description]
- * @return {[type]}     [description]
- */
+//sets subpage display IO
 subpage = function(_in) {
     if (_in) {
-        //$("#cup_sub_page").css("display", "block");
         $("#cup_sub_page").removeClass("hidden_top");
         $("#cup_sub_page").addClass("hidden_top_reveal");
     } else {
-        //$("#cup_sub_page").css("display", "none");
+        $("#cup_sub_page").removeClass("hidden_top_reveal");
+        $("#cup_sub_page").addClass("hidden_top");
+        $("#cup_sub").html(subPlusCardText);
+    }
+}
+
+//sets settings display IO
+settingsPage = function(_in) {
+    if (_in) {
+        $("#settings_sub_page").removeClass("hidden_top");
+        $("#settings_sub_page").addClass("hidden_top_reveal");
+    } else {
+        $("#settings_sub_page").removeClass("hidden_top_reveal");
+        $("#settings_sub_page").addClass("hidden_top");
+    }
+}
+
+subpage = function(_in) {
+    if (_in) {
+        $("#cup_sub_page").removeClass("hidden_top");
+        $("#cup_sub_page").addClass("hidden_top_reveal");
+    } else {
         $("#cup_sub_page").removeClass("hidden_top_reveal");
         $("#cup_sub_page").addClass("hidden_top");
         $("#cup_sub").html(subPlusCardText);
@@ -239,7 +221,7 @@ nodeArray = function(_categ) {
 
 updateCategBar = function() {
     for (var i = 0; i < mainNode.length; i++) {
-        $("#prog_" + (i + 1)).css("width", (1-N.categPercentage(i)) * 100 + "%");
+        $("#prog_" + (i + 1)).css("width", (1 - N.categPercentage(i)) * 100 + "%");
     }
 }
 

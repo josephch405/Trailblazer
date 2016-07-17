@@ -8,7 +8,7 @@ chrome.app.runtime.onLaunched.addListener(
                 'minHeight': 600
             },
             'frame':{
-                'color': '#9DCEFF'
+                'color': '#FFFFFF'
             }
         });
     }
