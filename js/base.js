@@ -75,13 +75,6 @@ setBaseOnclicks = function() {
     $("#categ_2").click(function() { pushCategToBoard(1); });
     $("#categ_3").click(function() { pushCategToBoard(2); });
 
-    $('#add_card').click(function() {
-        add_new_card(nodeArray(STATUS.categ));
-    });
-
-    $('#sub_add_card').click(function() {
-        sub_add_new_card(N.find(STATUS.subpageId));
-    });
 
     $('#greypage').click(returnToMain);
 

@@ -63,23 +63,12 @@ delete_card = function(_id) {
         }
     }
 
-    $("#card_" + _id).remove();
     N.saveAll();
 
     return 1;
 }
 
 //expands Trail/subTrail to subpage, SAVES
-expand_card = function(_id) {
-    STATUS.subpageId = _id;
-    greypage(true);
-    subpage(true);
-    STATUS.subMode = true;
-    $("#cup_sub_title").val(N.find(_id).name);
-    pushNodeToSub(N.find(_id));
-    N.saveAll();
-    return -1;
-}
 
 //opens settings subpage
 openSettings = function() {
@@ -102,6 +91,16 @@ pushCategToBoard = function(_categ) {
     attachTooltips();
 }
 
+expand_card = function(_id) {
+    STATUS.subpageId = _id;
+    greypage(true);
+    subpage(true);
+    STATUS.subMode = true;
+    //$("#cup_sub_title").val(N.find(_id).name);
+    N.push();
+    N.saveAll();
+    return -1;
+}
 
 //used by expand_card, pushes input's children to HTML, attaches tooltips
 pushNodeToSub = function(_node) {
@@ -125,12 +124,12 @@ returnToMain = function() {
     greypage(false);
     subpage(false);
     settingsPage(false);
-
-    pushCategToBoard(STATUS.categ);
+    
     STATUS.subMode = false;
     STATUS.settingsMode = false;
+
+    N.push();
     N.saveAll();
-    return -1;
 }
 
 //attaches tooltips to all .box
@@ -160,7 +159,6 @@ subpage = function(_in) {
     } else {
         $("#cup_sub_page").removeClass("hidden_top_reveal");
         $("#cup_sub_page").addClass("hidden_top");
-        $("#cup_sub").html(subPlusCardText);
     }
 }
 
@@ -172,17 +170,6 @@ settingsPage = function(_in) {
     } else {
         $("#settings_sub_page").removeClass("hidden_top_reveal");
         $("#settings_sub_page").addClass("hidden_top");
-    }
-}
-
-subpage = function(_in) {
-    if (_in) {
-        $("#cup_sub_page").removeClass("hidden_top");
-        $("#cup_sub_page").addClass("hidden_top_reveal");
-    } else {
-        $("#cup_sub_page").removeClass("hidden_top_reveal");
-        $("#cup_sub_page").addClass("hidden_top");
-        $("#cup_sub").html(subPlusCardText);
     }
 }
 

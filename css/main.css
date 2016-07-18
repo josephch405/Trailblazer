@@ -401,38 +401,26 @@ div input,
   align-self: flex-end;
   flex: 1;
   display: flex;
-  /*
-      div{
-          font-size:0;
-          color:white;
-      }
-      &:hover > .boxTitle{
-          font-size:1vw;
-          background-color:rgba(100,100,100,.5);
-      }*/ }
-
-/*
-.boxTitle{
-    height:auto;
-    text-align:center;
-    padding:.2vw;
-}*/
-/*
-.box > div {    
-    font-size:0;
-    &:hover{
-        font-size:2vw;
-    }
-}*/
-.box > .box {
-  height: 50%;
-  border-right: 1px solid white;
-  border-top: 1px solid white; }
-
-.box > .box > .box {
-  height: 40%; }
+  flex-wrap: wrap; }
+  .box .boxTag {
+    height: 50%; }
+  .box > .box {
+    height: 50%;
+    border-right: 1px solid white;
+    border-top: 1px solid white; }
+    .box > .box .boxTag {
+      height: 60%; }
+    .box > .box > .box {
+      height: 40%; }
 
 .box:last-child {
   border-right: 0; }
+
+.boxTag {
+  align-self: flex-start;
+  width: 100%; }
+
+.childlessBoxTag {
+  height: 100% !important; }
 
 /*# sourceMappingURL=main.css.map */

@@ -89,8 +89,6 @@ N = {
      * @param  int _categ   Category number to load to
      * @return NULL
      */
-
-
     loadCateg: function(_obj, _categ) {
         for (var i in _obj)
             nodeArray(_categ).push(N.create(_obj[i]));
@@ -128,67 +126,9 @@ N = {
     updateName: function(_node, _name) {
         N.find(_node).name = _name;
     },
-    gen_boxes: function(_node, layer) {
-        if (!layer) layer = 0;
-
-        var txt = '';
-        _node = N.find(_node);
-
-        if (_node.children.length > 0) {
-            txt += divHeadGen({ "class": ("fade box " + bToCClass(_node.checked)), "id": "box_" + _node.id, "title": _node.name }, STYLE.topPartition[layer]);
-            txt += '</div>';
-            txt += divHeadGen({}, STYLE.botPartition[layer]);
-
-            var topWidth = 100 / (_node.children.length);
-            for (var i in _node.children) {
-                txt += '<div ';
-                txt += ' style="left: ' + topWidth * i + '%; ';
-                txt += 'width:' + topWidth + '%; ';
-
-                if (i > 0) {
-                    txt += 'border-left:' + STYLE.line[0] + ";";
-                }
-
-                txt += '">';
-                txt += N.gen_boxes(_node.children[i], layer + 1);
-                txt += '</div>';
-            }
-            txt += '</div>';
-        } else {
-            txt += divHeadGen({ "class": "box fade " + bToCClass(_node.checked), "id": "box_" + _node.id, "title": _node.name }, {});
-            txt += '</div>';
-        }
-        return txt;
-    },
-    gen_card_inner: function(_node) {
-        _node = N.find(_node);
-        var text = divClass('card_t');
-        text += '<input maxlength="20" value = "' + _node.name + '">';
-        text += divClass('card_ctrl');
-        text += '<div class = "fade but_del"></div>';
-        if (_node.layer < 3) {
-            text += divClass('but_ed');
-            text += '</div>';
-        }
-        text += '</div>';
-        text += '</div>';
-
-        text += '<div class = "card_b">';
-        text += N.gen_boxes(_node);
-        text += '</div>';
-
-        return text;
-    },
     addToChildren: function(_node, input) {
         _node = N.find(_node);
         _node.children.push(input);
-    },
-    gen_card: function(_node) {
-        _node = N.find(_node);
-        var text = '<div id = "card_' + _node.id + '" class="inline card ' + N.valueToColorClass(_node.value) + '">';
-        text += N.gen_card_inner(_node);
-        text += '</div>';
-        return text;
     },
     /**
      * [N.setOnclick description]
@@ -237,8 +177,6 @@ N = {
                     N.updateName(STATUS.subpageId, this.value);
                     N.saveAll();
                 });
-                console.log(STATUS.subpageId);
-                console.log(N.find(STATUS.subpageId));
                 $("#sub_checkDiv").removeClass(bToCClass(!N.find(STATUS.subpageId).checked));
                 $("#sub_checkDiv").addClass(bToCClass(N.find(STATUS.subpageId).checked));
                 $("#sub_checkDiv").prop('onclick', null).off('click');
@@ -264,6 +202,33 @@ N = {
     flip_check: function(_node) {
         _node = N.find(_node);
         _node.checked = !_node.checked;
+    },
+    delete_card: function(_id) {
+        var done = false;
+
+        //TODO: optimize search
+        //First try finding on first layer
+        for (var t in mainNode) {
+            var _array = mainNode[t];
+            for (var i in _array) {
+                if (_array[i].id == _id.toString()) {
+                    _array.splice(i, 1);
+                    done = true;
+                }
+            }
+        }
+
+        //then try finding parent and then removing correct child
+        if (!done && _id.split("-").length > 1) {
+            var _parentId = N.parentId(_id);
+            var _parent = N.find(_parentId);
+            for (var i in _parent.children) {
+                if (_parent.children[i].id == _id) {
+                    _parent.children.splice(i, 1);
+                    done = true;
+                }
+            }
+        }
     },
     nextChildId: function(_node) {
         _node = N.find(_node);
@@ -370,14 +335,26 @@ N = {
             <TreeMain data={mainNode[STATUS.categ]} />,
             document.getElementById('cup_main_page')
         );
+        ReactDOM.render(
+            <TreeSub data = {[]} />,
+            document.getElementById('cup_sub_page')
+        );
         attachTooltips();
     },
     pushMainHandler: null,
-    pushMain: function(){
+    pushMain: function() {
         this.pushMainHandler(mainNode[STATUS.categ]);
+    },
+    pushSubHandler: null,
+    pushSub: function() {
+        this.pushSubHandler(N.find(STATUS.subpageId));
+    },
+    push: function() {
+        if (STATUS.subMode)
+            this.pushSub();
+        this.pushMain();
     }
 }
-
 
 TreeMain = React.createClass({
     getInitialState: function() {
@@ -389,18 +366,90 @@ TreeMain = React.createClass({
         };
     },
     render: function() {
-        console.log(this.state.data);
         return (
             <div id = "cup_main">
             {this.state.data.map(function(child) {
                     return <Leaf key = {child.id} data = {child}/>;
                 })
             }
-            <AddNew_Button />
+            <AddNew_Button/>
             </div>
         );
     }
 });
+
+TreeSub = React.createClass({
+    getInitialState: function() {
+        if (this.props.data.children == undefined)
+            this.props.data.children = [];
+        return { "data": this.props.data };
+    },
+    componentWillMount: function() {
+        N.pushSubHandler = (data) => {
+            this.setState({ "data": data })
+        };
+    },
+    render: function() {
+        return (
+            <div id = "cup_sub_container">
+                <Arrow/>
+                <SubNameInput value = {this.state.data.name} tag = {this.state.data.id}/>
+                <SubCheckDiv tag = {this.state.data.id} toggle = {this.state.data.checked}/>
+
+                <div id = "cup_sub">
+                {this.state.data.children.map(function(child) {
+                return <Leaf key = {child.id} data = {child}/>;
+            })}
+                <AddNew_Button />
+                </div>
+            </div>
+        );
+    }
+});
+
+Arrow = React.createClass({
+    handleClick: function() {
+        var temp = STATUS.subpageId.toString().split("-");
+        if (temp.length <= 1)
+            returnToMain();
+        else
+            expand_card(temp.slice(0, -1).join("-"));
+    },
+    render: function() {
+        return (
+            <img id="arrowOut" src="..\img\arrowOut.png" onClick = {this.handleClick}/>
+        )
+    }
+});
+
+SubNameInput = React.createClass({
+    getInitialState: function() {
+        return {
+            value: this.props.value,
+        }
+    },
+    componentWillReceiveProps: function(props){
+        this.setState({value:props.value});
+    },
+    handleChange: function(event) {
+        this.setState({ value: event.target.value });
+        N.updateName(this.props.tag, event.target.value);
+        N.saveAll();
+        N.push();
+    },
+    render: function() {
+        return (
+            <input value = {this.state.value} type = "text" class="cup_title" id="cup_sub_title" maxLength="20" onChange = {this.handleChange}/>
+        )
+    }
+});
+
+SubCheckDiv = React.createClass({
+    render: function() {
+        return (
+            <div id="sub_checkDiv" class="box fade but_orange"></div>)
+    }
+})
 
 Leaf = React.createClass({
     getInitialState: function() {
@@ -427,7 +476,7 @@ LeafTop = React.createClass({
     render: function() {
         return (
             <div className = "card_t">
-                <LeafNameInput name = {this.state.name}/>
+                <LeafNameInput value = {this.state.name} tag = {this.state.id}/>
                 <div className = "card_ctrl">
                 <LeafCtrlD tag = {this.state.id}/>
                 <LeafCtrlE tag = {this.state.id}/>
@@ -440,36 +489,49 @@ LeafTop = React.createClass({
 LeafNameInput = React.createClass({
     getInitialState: function() {
         return {
-            name: this.props.name
+            value: this.props.value,
         }
     },
+    componentWillReceiveProps: function(props){
+        this.setState({value:props.value});
+    },
     handleChange: function(event) {
-        this.setState({ name: event.target.value });
+        this.setState({ value: event.target.value });
+        N.updateName(this.props.tag, event.target.value);
         N.saveAll();
+        N.push();
     },
     render: function() {
         return (
             <input maxLength="20" 
-            value = {this.state.name}
+            value = {this.state.value}
             onChange = {this.handleChange}/>
         )
     }
 });
 
 LeafCtrlE = React.createClass({
-    handleClick: function(event) {},
+    handleClick: function(event) {
+        expand_card(this.props.tag);
+        N.saveAll();
+        N.push();
+    },
     render: function() {
         return (
-            <div className = "but_ed"/>
+            <div className = "but_ed" onClick = {this.handleClick}/>
         );
     }
 });
 
 LeafCtrlD = React.createClass({
-    handleClick: function(event) {},
+    handleClick: function() {
+        N.delete_card(this.props.tag);
+        N.saveAll();
+        N.push();
+    },
     render: function() {
         return (
-            <div className = "but_del"/>
+            <div className = "but_del" onClick = {this.handleClick}/>
         );
     }
 })
@@ -478,13 +540,22 @@ LeafBox = React.createClass({
     getInitialState: function() {
         return this.props.data;
     },
+    handleClick: function() {
+        N.flip_check(this.state.id);
+        N.push();
+        N.saveAll();
+    },
     render: function() {
         var data = this.state;
         var classString = "fade box " + bToCClass(data.checked);
+        var tagString = "fade boxTag";
+        if (data.children.length == 0)
+            tagString += " childlessBoxTag";
         var idString = "box_" + data.id;
+
         return (
-            <div className = {classString} idString = {idString} title = {this.props.data.name}>
-                
+            <div className = {classString} id = {idString} title = {this.props.data.name}>
+                <div className = {tagString} onClick = {this.handleClick}></div>
                 {data.children.map(function(child) {
                     return <LeafBox key = {child.id} data = {child}/>;
                 })}
@@ -496,9 +567,20 @@ LeafBox = React.createClass({
 
 
 AddNew_Button = React.createClass({
+    handleClick: function() {
+        if (STATUS.subMode) {
+
+        } else {
+            var _id = N.nextId();
+            var _array = mainNode[STATUS.categ];
+            _array.push(N.create({ "name": "New Task", "id": _id }));
+            N.saveAll();
+            N.push();
+        }
+    },
     render: function() {
         return (
-            <div id="add_card" className="inline card">
+            <div id="add_card" className="inline card" onClick = {this.handleClick}>
                 <img src="../img/plus.png"/>
             </div>
         )
