@@ -7,7 +7,6 @@ T = {
         taskData = _obj ? _obj : [];
         T.render();
     },
-
     render: function() {
         ReactDOM.render(
             <TaskList data={taskData} />,
@@ -67,6 +66,7 @@ TaskName = React.createClass({
         findById(taskData, this.props.id).text = event.target.value;
         //this actually updates the data - need better solution
         T.saveAll();
+        //then pushes to storage
     },
     render: function() {
         return (

@@ -165,13 +165,10 @@ N = {
         var text = divClass('card_t');
         text += '<input maxlength="20" value = "' + _node.name + '">';
         text += divClass('card_ctrl');
-
+        text += '<div class = "fade but_del"></div>';
         if (_node.layer < 3) {
-            text += '<div class = "fade but_del" style="height:20%; border-bottom:' + STYLE.line[1] + '"></div>';
             text += divClass('but_ed');
             text += '</div>';
-        } else {
-            text += '<div class = "fade but_del" style="height:100%""></div>';
         }
         text += '</div>';
         text += '</div>';
@@ -370,25 +367,38 @@ N = {
     },
     render: function() {
         ReactDOM.render(
-            <TreeMain data={mainNode} />,
-            document.getElementById('cup_main')
+            <TreeMain data={mainNode[STATUS.categ]} />,
+            document.getElementById('cup_main_page')
         );
+        attachTooltips();
+    },
+    pushMainHandler: null,
+    pushMain: function(){
+        this.pushMainHandler(mainNode[STATUS.categ]);
     }
 }
 
 
 TreeMain = React.createClass({
+    getInitialState: function() {
+        return { "data": this.props.data };
+    },
+    componentWillMount: function() {
+        N.pushMainHandler = (data) => {
+            this.setState({ "data": data })
+        };
+    },
     render: function() {
-        var taskNodes = !this.props.data ? "" : this.props.data.map(function(task) {
-            return (
-                <Leaf data = {task}/>
-            );
-        });
-
-        return ([
-            { taskNodes },
+        console.log(this.state.data);
+        return (
+            <div id = "cup_main">
+            {this.state.data.map(function(child) {
+                    return <Leaf key = {child.id} data = {child}/>;
+                })
+            }
             <AddNew_Button />
-        ]);
+            </div>
+        );
     }
 });
 
@@ -397,12 +407,14 @@ Leaf = React.createClass({
         return this.props.data;
     },
     render: function() {
-        var idString = card_ + this.state.id;
+        var idString = "card_" + this.state.id;
         var classString = 'inline card ' + N.valueToColorClass(this.state.value);
         return (
             <div id = {idString} className = {classString}>
                 <LeafTop data = {this.props.data}/>
-                <LeafBottom data = {this.props.data}/>
+                <div className = "card_b">
+                <LeafBox data = {this.props.data}/>
+                </div>
             </div>
         );
     }
@@ -415,6 +427,11 @@ LeafTop = React.createClass({
     render: function() {
         return (
             <div className = "card_t">
+                <LeafNameInput name = {this.state.name}/>
+                <div className = "card_ctrl">
+                <LeafCtrlD tag = {this.state.id}/>
+                <LeafCtrlE tag = {this.state.id}/>
+                </div>
             </div>
         )
     }
@@ -428,7 +445,7 @@ LeafNameInput = React.createClass({
     },
     handleChange: function(event) {
         this.setState({ name: event.target.value });
-        //N.saveAll();
+        N.saveAll();
     },
     render: function() {
         return (
@@ -437,13 +454,52 @@ LeafNameInput = React.createClass({
             onChange = {this.handleChange}/>
         )
     }
+});
+
+LeafCtrlE = React.createClass({
+    handleClick: function(event) {},
+    render: function() {
+        return (
+            <div className = "but_ed"/>
+        );
+    }
+});
+
+LeafCtrlD = React.createClass({
+    handleClick: function(event) {},
+    render: function() {
+        return (
+            <div className = "but_del"/>
+        );
+    }
 })
+
+LeafBox = React.createClass({
+    getInitialState: function() {
+        return this.props.data;
+    },
+    render: function() {
+        var data = this.state;
+        var classString = "fade box " + bToCClass(data.checked);
+        var idString = "box_" + data.id;
+        return (
+            <div className = {classString} idString = {idString} title = {this.props.data.name}>
+                
+                {data.children.map(function(child) {
+                    return <LeafBox key = {child.id} data = {child}/>;
+                })}
+            </div>
+        )
+    }
+});
+
+
 
 AddNew_Button = React.createClass({
     render: function() {
         return (
-            <div id="add_card" class="inline card">
-                <img src="..\img\plus.png"/>
+            <div id="add_card" className="inline card">
+                <img src="../img/plus.png"/>
             </div>
         )
     }

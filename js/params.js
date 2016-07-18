@@ -26,10 +26,10 @@ STYLE = {
 
     "tooltip": {
         position: {
-            my: 'center bottom-20',
+            my: 'center bottom',
             at: 'center top'
         },
-        track: true,
+        track: false,
         show: {
             effect: "toggle"
         },

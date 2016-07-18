@@ -85,7 +85,7 @@ div input,
 #bar_top {
     height: 8%;
     box-shadow: 0 0 6px 0px;
-    background-color: rgba(255,255,255,1);
+    background-color: rgba(255, 255, 255, 1);
 }
 
 .top_title {
@@ -129,7 +129,7 @@ div input,
 
 .top_s {
     z-index: 3;
-    background-color: rgba(200,200,200,.5);
+    background-color: rgba(200, 200, 200, .5);
     &:hover {
         //background-color: #585858;
     }
@@ -251,6 +251,7 @@ div input,
 .but_ed {
     top: 20%;
     height: 80%;
+    border-top: solid 1px #A3A3A3;
     background-color: #FFFFFF;
     &:hover {
         background-color: #FFC560;
@@ -259,6 +260,7 @@ div input,
 
 .but_del {
     top: 0%;
+    height: 100%;
     background-color: #FFFFFF;
     &:hover {
         background-color: #FF4E4E;
@@ -326,7 +328,12 @@ div input,
 }
 
 .ui-tooltip {
-    font-size: 2.5vh;
+    font-size: 2.2vh;
+    border-width: 0 !important;
+    border-radius: 0px;
+    background-color:rgba(100,100,100,.5);
+    color:white;
+    box-shadow:none;
 }
 
 .ui-tooltip-content {
@@ -464,6 +471,9 @@ div input,
 .card_b {
     height: 80%;
     top: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
 }
 
 .prog {
@@ -475,7 +485,47 @@ div input,
     -webkit-transition: width .2s;
 }
 
-.ui-tooltip {
-    border-width: 0 !important;
-    border-radius: 1px;
+
+.box {
+    position:static;
+    align-self: flex-end;
+    flex: 1;
+    display: flex;
+/*
+    div{
+        font-size:0;
+        color:white;
+    }
+    &:hover > .boxTitle{
+        font-size:1vw;
+        background-color:rgba(100,100,100,.5);
+    }*/
+}
+/*
+.boxTitle{
+    height:auto;
+    text-align:center;
+    padding:.2vw;
+}*/
+/*
+.box > div {    
+    font-size:0;
+    &:hover{
+        font-size:2vw;
+    }
+}*/
+
+
+.box > .box{
+    height:50%;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
+}
+
+.box > .box > .box{
+    height:40%;
+}
+
+.box:last-child {
+    border-right: 0;
 }

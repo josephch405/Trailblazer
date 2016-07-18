@@ -71,9 +71,9 @@ boolToCol = function(ticked) {
 
 
 setBaseOnclicks = function() {
-    $("#categ_1").click(function() { switchCateg(0); });
-    $("#categ_2").click(function() { switchCateg(1); });
-    $("#categ_3").click(function() { switchCateg(2); });
+    $("#categ_1").click(function() { pushCategToBoard(0); });
+    $("#categ_2").click(function() { pushCategToBoard(1); });
+    $("#categ_3").click(function() { pushCategToBoard(2); });
 
     $('#add_card').click(function() {
         add_new_card(nodeArray(STATUS.categ));

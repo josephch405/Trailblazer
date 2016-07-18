@@ -90,18 +90,18 @@ openSettings = function() {
 
 //pushes nodeArray(input) to main board, attaches tooltips
 pushCategToBoard = function(_categ) {
-    $("#cup_main").html(plusCardText);
-    var nodes = nodeArray(_categ);
-    for (var i = 0; i < nodes.length; i++) {
-        $(N.gen_card(nodes[i])).insertBefore($("#add_card"));
-        N.setOnclick(nodes[i].id);
+    if (_categ != STATUS.categ) {
+        $('#categ_' + (_categ + 1)).toggleClass("top_");
+        $('#categ_' + (_categ + 1)).toggleClass("top_s");
+        $('#categ_' + (STATUS.categ + 1)).toggleClass("top_");
+        $('#categ_' + (STATUS.categ + 1)).toggleClass("top_s");
+        STATUS.categ = _categ;
     }
 
-    $('#add_card').click(function() {
-        add_new_card(nodeArray(STATUS.categ));
-    });
+    N.pushMain()
     attachTooltips();
 }
+
 
 //used by expand_card, pushes input's children to HTML, attaches tooltips
 pushNodeToSub = function(_node) {
@@ -125,6 +125,7 @@ returnToMain = function() {
     greypage(false);
     subpage(false);
     settingsPage(false);
+
     pushCategToBoard(STATUS.categ);
     STATUS.subMode = false;
     STATUS.settingsMode = false;
@@ -134,18 +135,11 @@ returnToMain = function() {
 
 //attaches tooltips to all .box
 attachTooltips = function() {
-    $(".box").tooltip(STYLE.tooltip);
+    $(".box>.box").tooltip(STYLE.tooltip);
 }
 
 //uses pushCategToBoard, then updates categBar and STATUS
-switchCateg = function(_target) {
-    pushCategToBoard(_target);
-    $('#categ_' + (_target + 1)).toggleClass("top_");
-    $('#categ_' + (_target + 1)).toggleClass("top_s");
-    $('#categ_' + (STATUS.categ + 1)).toggleClass("top_");
-    $('#categ_' + (STATUS.categ + 1)).toggleClass("top_s");
-    STATUS.categ = _target;
-}
+
 
 //sets greypage display IO
 greypage = function(_in) {
@@ -227,7 +221,8 @@ updateCategBar = function() {
 
 chrome.storage.local.get('mainNode', function(result) {
     N.loadAll(result.mainNode);
-    pushCategToBoard(STATUS.categ);
+    N.render();
+    //pushCategToBoard(STATUS.categ);
     updateCategBar();
 });
 

@@ -166,13 +166,13 @@ boolToCol = function (ticked) {
 
 setBaseOnclicks = function () {
     $("#categ_1").click(function () {
-        switchCateg(0);
+        pushCategToBoard(0);
     });
     $("#categ_2").click(function () {
-        switchCateg(1);
+        pushCategToBoard(1);
     });
     $("#categ_3").click(function () {
-        switchCateg(2);
+        pushCategToBoard(2);
     });
 
     $('#add_card').click(function () {
@@ -408,16 +408,15 @@ openSettings = function () {
 
 //pushes nodeArray(input) to main board, attaches tooltips
 pushCategToBoard = function (_categ) {
-    $("#cup_main").html(plusCardText);
-    var nodes = nodeArray(_categ);
-    for (var i = 0; i < nodes.length; i++) {
-        $(N.gen_card(nodes[i])).insertBefore($("#add_card"));
-        N.setOnclick(nodes[i].id);
+    if (_categ != STATUS.categ) {
+        $('#categ_' + (_categ + 1)).toggleClass("top_");
+        $('#categ_' + (_categ + 1)).toggleClass("top_s");
+        $('#categ_' + (STATUS.categ + 1)).toggleClass("top_");
+        $('#categ_' + (STATUS.categ + 1)).toggleClass("top_s");
+        STATUS.categ = _categ;
     }
 
-    $('#add_card').click(function () {
-        add_new_card(nodeArray(STATUS.categ));
-    });
+    N.pushMain();
     attachTooltips();
 };
 
@@ -442,6 +441,7 @@ returnToMain = function () {
     greypage(false);
     subpage(false);
     settingsPage(false);
+
     pushCategToBoard(STATUS.categ);
     STATUS.subMode = false;
     STATUS.settingsMode = false;
@@ -451,18 +451,10 @@ returnToMain = function () {
 
 //attaches tooltips to all .box
 attachTooltips = function () {
-    $(".box").tooltip(STYLE.tooltip);
+    $(".box>.box").tooltip(STYLE.tooltip);
 };
 
 //uses pushCategToBoard, then updates categBar and STATUS
-switchCateg = function (_target) {
-    pushCategToBoard(_target);
-    $('#categ_' + (_target + 1)).toggleClass("top_");
-    $('#categ_' + (_target + 1)).toggleClass("top_s");
-    $('#categ_' + (STATUS.categ + 1)).toggleClass("top_");
-    $('#categ_' + (STATUS.categ + 1)).toggleClass("top_s");
-    STATUS.categ = _target;
-};
 
 //sets greypage display IO
 greypage = function (_in) {
@@ -541,7 +533,8 @@ updateCategBar = function () {
 
 chrome.storage.local.get('mainNode', function (result) {
     N.loadAll(result.mainNode);
-    pushCategToBoard(STATUS.categ);
+    N.render();
+    //pushCategToBoard(STATUS.categ);
     updateCategBar();
 });
 
@@ -607,10 +600,10 @@ STYLE = {
 
     "tooltip": {
         position: {
-            my: 'center bottom-20',
+            my: 'center bottom',
             at: 'center top'
         },
-        track: true,
+        track: false,
         show: {
             effect: "toggle"
         },
@@ -686,7 +679,6 @@ T = {
         taskData = _obj ? _obj : [];
         T.render();
     },
-
     render: function () {
         ReactDOM.render(React.createElement(TaskList, { data: taskData }), document.getElementById('taskList'));
     },
@@ -767,6 +759,7 @@ TaskName = React.createClass({
         findById(taskData, this.props.id).text = event.target.value;
         //this actually updates the data - need better solution
         T.saveAll();
+        //then pushes to storage
     },
     render: function () {
         return React.createElement('input', {
@@ -980,13 +973,10 @@ N = {
         var text = divClass('card_t');
         text += '<input maxlength="20" value = "' + _node.name + '">';
         text += divClass('card_ctrl');
-
+        text += '<div class = "fade but_del"></div>';
         if (_node.layer < 3) {
-            text += '<div class = "fade but_del" style="height:20%; border-bottom:' + STYLE.line[1] + '"></div>';
             text += divClass('but_ed');
             text += '</div>';
-        } else {
-            text += '<div class = "fade but_del" style="height:100%""></div>';
         }
         text += '</div>';
         text += '</div>';
@@ -1164,19 +1154,36 @@ N = {
         return "rr";
     },
     render: function () {
-        ReactDOM.render(React.createElement(TreeMain, { data: mainNode }), document.getElementById('cup_main'));
+        ReactDOM.render(React.createElement(TreeMain, { data: mainNode[STATUS.categ] }), document.getElementById('cup_main_page'));
+        attachTooltips();
+    },
+    pushMainHandler: null,
+    pushMain: function () {
+        this.pushMainHandler(mainNode[STATUS.categ]);
     }
 };
 
 TreeMain = React.createClass({
     displayName: "TreeMain",
 
+    getInitialState: function () {
+        return { "data": this.props.data };
+    },
+    componentWillMount: function () {
+        N.pushMainHandler = data => {
+            this.setState({ "data": data });
+        };
+    },
     render: function () {
-        var taskNodes = !this.props.data ? "" : this.props.data.map(function (task) {
-            return React.createElement(Leaf, { data: task });
-        });
-
-        return [{ taskNodes }, React.createElement(AddNew_Button, null)];
+        console.log(this.state.data);
+        return React.createElement(
+            "div",
+            { id: "cup_main" },
+            this.state.data.map(function (child) {
+                return React.createElement(Leaf, { key: child.id, data: child });
+            }),
+            React.createElement(AddNew_Button, null)
+        );
     }
 });
 
@@ -1187,13 +1194,17 @@ Leaf = React.createClass({
         return this.props.data;
     },
     render: function () {
-        var idString = card_ + this.state.id;
+        var idString = "card_" + this.state.id;
         var classString = 'inline card ' + N.valueToColorClass(this.state.value);
         return React.createElement(
             "div",
             { id: idString, className: classString },
             React.createElement(LeafTop, { data: this.props.data }),
-            React.createElement(LeafBottom, { data: this.props.data })
+            React.createElement(
+                "div",
+                { className: "card_b" },
+                React.createElement(LeafBox, { data: this.props.data })
+            )
         );
     }
 });
@@ -1205,7 +1216,17 @@ LeafTop = React.createClass({
         return this.props.data;
     },
     render: function () {
-        return React.createElement("div", { className: "card_t" });
+        return React.createElement(
+            "div",
+            { className: "card_t" },
+            React.createElement(LeafNameInput, { name: this.state.name }),
+            React.createElement(
+                "div",
+                { className: "card_ctrl" },
+                React.createElement(LeafCtrlD, { tag: this.state.id }),
+                React.createElement(LeafCtrlE, { tag: this.state.id })
+            )
+        );
     }
 });
 
@@ -1219,12 +1240,50 @@ LeafNameInput = React.createClass({
     },
     handleChange: function (event) {
         this.setState({ name: event.target.value });
-        //N.saveAll();
+        N.saveAll();
     },
     render: function () {
         return React.createElement("input", { maxLength: "20",
             value: this.state.name,
             onChange: this.handleChange });
+    }
+});
+
+LeafCtrlE = React.createClass({
+    displayName: "LeafCtrlE",
+
+    handleClick: function (event) {},
+    render: function () {
+        return React.createElement("div", { className: "but_ed" });
+    }
+});
+
+LeafCtrlD = React.createClass({
+    displayName: "LeafCtrlD",
+
+    handleClick: function (event) {},
+    render: function () {
+        return React.createElement("div", { className: "but_del" });
+    }
+});
+
+LeafBox = React.createClass({
+    displayName: "LeafBox",
+
+    getInitialState: function () {
+        return this.props.data;
+    },
+    render: function () {
+        var data = this.state;
+        var classString = "fade box " + bToCClass(data.checked);
+        var idString = "box_" + data.id;
+        return React.createElement(
+            "div",
+            { className: classString, idString: idString, title: this.props.data.name },
+            data.children.map(function (child) {
+                return React.createElement(LeafBox, { key: child.id, data: child });
+            })
+        );
     }
 });
 
@@ -1234,8 +1293,8 @@ AddNew_Button = React.createClass({
     render: function () {
         return React.createElement(
             "div",
-            { id: "add_card", "class": "inline card" },
-            React.createElement("img", { src: "..\\img\\plus.png" })
+            { id: "add_card", className: "inline card" },
+            React.createElement("img", { src: "../img/plus.png" })
         );
     }
 });
