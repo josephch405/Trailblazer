@@ -1,7 +1,7 @@
 mainNode = [
-    [],
-    [],
-    []
+    { "name": "Work", "data": [] },
+    { "name": "Hobbies", "data": [] },
+    { "name": "Habits", "data": [] }
 ];
 
 N = {
@@ -65,7 +65,7 @@ N = {
         } else {
             //initial call, start in mainNode
             for (var k in mainNode) {
-                var _array = mainNode[k];
+                var _array = N.arrayD(k);
                 var obj3 = N.find(_id, _array);
                 if (obj3 != -1)
                     return obj3;
@@ -81,26 +81,40 @@ N = {
         chrome.storage.local.set({
             'mainNode': mainNode
         }, function() {});
-        updateCategBar();
+        chrome.storage.local.set({
+            'STATUS': STATUS
+        }, function() {});
     },
     /**
-     * Loads array of objects into a certain category
-     * @param  Array _obj   Array of objects to load
-     * @param  int _categ   Category number to load to
-     * @return NULL
+     * [loadCateg description]
+     * @param  {[type]} _name  [description]
+     * @param  {[type]} _obj   [description]
+     * @param  {[type]} _index [description]
+     * @return {[type]}        [description]
      */
-    loadCateg: function(_obj, _categ) {
+    loadCateg: function(_name, _obj, _categ) {
+        mainNode[_categ] = { "name": "", "data": [] };
+        N.arrayN(_categ, _name);
         for (var i in _obj)
-            nodeArray(_categ).push(N.create(_obj[i]));
+            N.arrayD(_categ).push(N.create(_obj[i]));
     },
-
+    arrayD: function(_categ, _set) {
+        if (_set)
+            mainNode[_categ].data = _set;
+        return mainNode[_categ].data;
+    },
+    arrayN: function(_categ, _set) {
+        if (_set)
+            mainNode[_categ].name = _set;
+        return mainNode[_categ].name;
+    },
     categPercentage: function(index) {
         var counter = 0;
-        for (var i in mainNode[index])
-            counter += mainNode[index][i].checked ? 1 : 0;
-        if (mainNode[index].length == 0)
+        for (var i in N.arrayD(index))
+            counter += N.arrayD(index)[i].checked ? 1 : 0;
+        if (N.arrayD(index).length == 0)
             return 1;
-        return counter / mainNode[index].length;
+        return counter / N.arrayD(index).length;
     },
     /**
      * Uses loadCateg to load all three categories
@@ -108,13 +122,9 @@ N = {
      * @return NULL
      */
     loadAll: function(_obj) {
-        mainNode = [
-            [],
-            [],
-            []
-        ]; //_obj ? _obj : [[],[],[]];
-        for (var i = 0; i < 3; i++) {
-            N.loadCateg(_obj[i], i);
+        mainNode = [];
+        for (var i in _obj) {
+            N.loadCateg(_obj[i].name, _obj[i].data, i);
         }
     },
     /**
@@ -130,67 +140,6 @@ N = {
         _node = N.find(_node);
         _node.children.push(input);
     },
-    /**
-     * [N.setOnclick description]
-     * @param {[type]} _id [description]
-     */
-    setOnclick: function(_node, propog) {
-        //propogdown
-        _node = N.find(_node);
-        if (propog) {
-            var _id = _node.id;
-
-            $("#box_" + _id).prop('onclick', null).off('click');
-            $("#card_" + _id).find(".but_del").prop('onclick', null).off('click');
-            $("#card_" + _id).find("input").prop('keyup', null).off('keyup');
-            $("#card_" + _id).find(".but_ed").prop('keyup', null).off('click');
-
-            $("#box_" + _id).click(function() {
-                N.flip_check(_id);
-                N.refresh_card(_id);
-                N.setOnclick(_id);
-                N.saveAll();
-            });
-
-            $("#card_" + _id).find(".but_del").click(function() {
-                delete_card(_id);
-            });
-
-
-            $("#card_" + _id).find("input").keyup(function() {
-                /*if (this.value.match(/[^0-9a-zA-Z" "]/g)) {
-                     this.value = this.value.replace(/[^0-9a-zA-Z" "]/g, '');
-                 } code for eliminating input by regex*/
-                N.updateName(_id, this.value);
-                N.saveAll();
-            });
-
-            $("#card_" + _id).find(".but_ed").click(function() {
-                expand_card(_id);
-            });
-            for (var i in _node.children) {
-                N.setOnclick(_node.children[i].id, true);
-            }
-        } else {
-            if (STATUS.subMode) {
-                $("#cup_sub_title").keyup(function() {
-                    N.updateName(STATUS.subpageId, this.value);
-                    N.saveAll();
-                });
-                $("#sub_checkDiv").removeClass(bToCClass(!N.find(STATUS.subpageId).checked));
-                $("#sub_checkDiv").addClass(bToCClass(N.find(STATUS.subpageId).checked));
-                $("#sub_checkDiv").prop('onclick', null).off('click');
-                $("#sub_checkDiv").click(function() {
-                    N.flip_check(STATUS.subpageId);
-                    N.refresh_card(STATUS.subpageId);
-                    N.setOnclick(STATUS.subpageId);
-                    N.saveAll();
-                });
-            }
-            N.setOnclick(_node.rootId, true);
-        }
-        attachTooltips();
-    },
     refresh_card: function(_node) {
         _node = N.find(_node);
         var text = N.gen_card_inner(_node);
@@ -199,6 +148,7 @@ N = {
         if (N.parentId(_node.id) != -1)
             N.refresh_card(N.parentId(_node.id));
     },
+
     flip_check: function(_node) {
         _node = N.find(_node);
         _node.checked = !_node.checked;
@@ -209,7 +159,7 @@ N = {
         //TODO: optimize search
         //First try finding on first layer
         for (var t in mainNode) {
-            var _array = mainNode[t];
+            var _array = N.arrayD(t);
             for (var i in _array) {
                 if (_array[i].id == _id.toString()) {
                     _array.splice(i, 1);
@@ -250,11 +200,9 @@ N = {
     },
     nextId: function() {
         var idList = [];
-        for (var i = 0; i < mainNode.length; i++) {
-            for (var ii = 0; ii < mainNode[i].length; ii++) {
-                idList.push(mainNode[i][ii].id);
-            }
-        }
+        for (var i in mainNode)
+            for (var ii in N.arrayD(i))
+                idList.push(N.arrayD(i)[ii].id);
         if (idList.length === 0) {
             return 1;
         } else {
@@ -280,8 +228,8 @@ N = {
     },
     clearValueAll: function() {
         for (var i in mainNode)
-            for (var ii in mainNode[i])
-                N.clearValue(mainNode[i][ii]);
+            for (var ii in N.arrayD(i))
+                N.clearValue(N.arrayD(i)[ii]);
         pushCategToBoard(STATUS.categ);
         N.saveAll();
     },
@@ -293,8 +241,8 @@ N = {
     },
     clearCheckedAll: function() {
         for (var i in mainNode)
-            for (var ii in mainNode[i])
-                N.clearChecked(mainNode[i][ii]);
+            for (var ii in N.arrayD(i))
+                N.clearChecked(N.arrayD(i)[ii]);
         pushCategToBoard(STATUS.categ);
         N.saveAll();
     },
@@ -306,8 +254,8 @@ N = {
     },
     evalAll: function() {
         for (var i in mainNode)
-            for (var ii in mainNode[i])
-                N.evalCard(mainNode[i][ii]);
+            for (var ii in N.arrayD(i))
+                N.evalCard(N.arrayD(i)[ii]);
         N.clearCheckedAll();
         N.saveAll();
         returnToMain();
@@ -332,27 +280,46 @@ N = {
     },
     render: function() {
         ReactDOM.render(
-            <TreeMain data={mainNode[STATUS.categ]} />,
+            <TreeMain data={N.arrayD(STATUS.categ)} />,
             document.getElementById('cup_main_page')
         );
         ReactDOM.render(
             <TreeSub data = {[]} />,
             document.getElementById('cup_sub_page')
         );
+        ReactDOM.render(
+            <CategBar data = {mainNode} />,
+            document.getElementById('bar_top')
+        );
+        ReactDOM.render(
+            <CatEditor data = {mainNode} />,
+            document.getElementById('cat_sub_page')
+        );
         attachTooltips();
     },
     pushMainHandler: null,
     pushMain: function() {
-        this.pushMainHandler(mainNode[STATUS.categ]);
+        this.pushMainHandler(N.arrayD(STATUS.categ));
     },
     pushSubHandler: null,
     pushSub: function() {
         this.pushSubHandler(N.find(STATUS.subpageId));
     },
+    pushCatHandler: null,
+    pushCat: function() {
+        this.pushCatHandler(mainNode);
+    },
+    pushCatEHandler: null,
+    pushCatE: function() {
+        this.pushCatEHandler(mainNode);
+    },
     push: function() {
         if (STATUS.subMode)
             this.pushSub();
         this.pushMain();
+        this.pushCat();
+        this.pushCatE();
+        setTimeout(attachTooltips, 100);
     }
 }
 
@@ -394,7 +361,7 @@ TreeSub = React.createClass({
             <div id = "cup_sub_container">
                 <Arrow/>
                 <SubNameInput value = {this.state.data.name} tag = {this.state.data.id}/>
-                <SubCheckDiv tag = {this.state.data.id} toggle = {this.state.data.checked}/>
+                <SubCheckDiv tag = {this.state.data.id} checked = {this.state.data.checked}/>
 
                 <div id = "cup_sub">
                 {this.state.data.children.map(function(child) {
@@ -423,31 +390,30 @@ Arrow = React.createClass({
 });
 
 SubNameInput = React.createClass({
-    getInitialState: function() {
-        return {
-            value: this.props.value,
-        }
-    },
-    componentWillReceiveProps: function(props){
-        this.setState({value:props.value});
-    },
     handleChange: function(event) {
-        this.setState({ value: event.target.value });
         N.updateName(this.props.tag, event.target.value);
         N.saveAll();
         N.push();
     },
     render: function() {
         return (
-            <input value = {this.state.value} type = "text" class="cup_title" id="cup_sub_title" maxLength="20" onChange = {this.handleChange}/>
+            <input value = {this.props.value} type = "text" class="cup_title" id="cup_sub_title" maxLength="20" onChange = {this.handleChange}/>
         )
     }
 });
 
 SubCheckDiv = React.createClass({
+    handleClick: function() {
+        N.flip_check(this.props.tag);
+        N.push();
+        N.saveAll();
+    },
     render: function() {
+        var classString = "but_orange";
+        if (this.props.checked)
+            classString = "but_green";
         return (
-            <div id="sub_checkDiv" class="box fade but_orange"></div>)
+            <div id="sub_checkDiv" className={"fade " + classString} onClick = {this.handleClick}></div>)
     }
 })
 
@@ -474,12 +440,17 @@ LeafTop = React.createClass({
         return this.props.data;
     },
     render: function() {
+        var LeafCtrlEText = "";
+        if (this.state.layer < 3) {
+            LeafCtrlEText = <LeafCtrlE tag = {this.state.id}/>
+        }
         return (
             <div className = "card_t">
                 <LeafNameInput value = {this.state.name} tag = {this.state.id}/>
                 <div className = "card_ctrl">
                 <LeafCtrlD tag = {this.state.id}/>
-                <LeafCtrlE tag = {this.state.id}/>
+                {LeafCtrlEText}
+                
                 </div>
             </div>
         )
@@ -487,16 +458,7 @@ LeafTop = React.createClass({
 });
 
 LeafNameInput = React.createClass({
-    getInitialState: function() {
-        return {
-            value: this.props.value,
-        }
-    },
-    componentWillReceiveProps: function(props){
-        this.setState({value:props.value});
-    },
     handleChange: function(event) {
-        this.setState({ value: event.target.value });
         N.updateName(this.props.tag, event.target.value);
         N.saveAll();
         N.push();
@@ -504,7 +466,7 @@ LeafNameInput = React.createClass({
     render: function() {
         return (
             <input maxLength="20" 
-            value = {this.state.value}
+            value = {this.props.value}
             onChange = {this.handleChange}/>
         )
     }
@@ -547,8 +509,8 @@ LeafBox = React.createClass({
     },
     render: function() {
         var data = this.state;
-        var classString = "fade box " + bToCClass(data.checked);
-        var tagString = "fade boxTag";
+        var classString = "fade box ";
+        var tagString = "fade boxTag " + bToCClass(data.checked);
         if (data.children.length == 0)
             tagString += " childlessBoxTag";
         var idString = "box_" + data.id;
@@ -564,25 +526,198 @@ LeafBox = React.createClass({
     }
 });
 
-
-
 AddNew_Button = React.createClass({
     handleClick: function() {
         if (STATUS.subMode) {
-
+            var _id = N.nextChildId(STATUS.subpageId);
+            N.find(STATUS.subpageId).children.push(N.create({ "name": "New Task", "id": _id }));
         } else {
             var _id = N.nextId();
-            var _array = mainNode[STATUS.categ];
-            _array.push(N.create({ "name": "New Task", "id": _id }));
-            N.saveAll();
-            N.push();
+            N.arrayD(STATUS.categ).push(N.create({ "name": "New Task", "id": _id }));
         }
+        N.saveAll();
+        N.push();
     },
     render: function() {
         return (
             <div id="add_card" className="inline card" onClick = {this.handleClick}>
                 <img src="../img/plus.png"/>
             </div>
+        )
+    }
+})
+
+
+
+
+CategBar = React.createClass({
+    getInitialState: function() {
+        return this.props;
+    },
+    componentWillMount: function() {
+        N.pushCatHandler = (data) => {
+            this.setState({ "data": data })
+        };
+    },
+    render: function() {
+        return (
+            <div id = "categ_">
+            <CategH data = {this.state.data}/>
+            <CategE/>
+        </div>
+        )
+    }
+})
+
+CategH = React.createClass({
+    render: function() {
+        return (
+            <div id = "categ_h">
+            {this.props.data.map(function(categ, index){
+                return(
+                <CategI name = {categ.name} key = {index} tag = {index}/>)
+            })}
+        </div>
+        )
+    }
+})
+
+CategE = React.createClass({
+    render: function() {
+        return (<div className = 'fade' id = 'categ_e' onClick = {openCat}>
+            <img src = "..\img\notebook.png"/> 
+            </div>)
+    }
+})
+
+CategI = React.createClass({
+    handleClick: function() {
+        STATUS.categ = this.props.tag;
+        N.saveAll();
+        N.push();
+    },
+    render: function() {
+        var divStyle = {
+            width: (1 - N.categPercentage(this.props.tag)) * 100 + "%"
+        }
+
+        var classString = "fade top_";
+
+        if (this.props.tag == STATUS.categ)
+            classString += "s";
+        return (
+            <div className = {classString} onClick = { this.handleClick} >
+            <div className = 'top_title'>
+            <span>{this.props.name}</span>
+            </div>
+            <div className="prog" style = {divStyle}></div>
+        </div>
+        )
+    }
+})
+
+
+
+CatEditor = React.createClass({
+    getInitialState: function() {
+        if (this.props.data.children == undefined)
+            this.props.data.children = [];
+        return { "data": this.props.data };
+    },
+    componentWillMount: function() {
+        N.pushCatEHandler = (data) => {
+            this.setState({ "data": data })
+        };
+    },
+    render: function() {
+        var plusBut;
+        if (this.state.data.length < 8) {
+            plusBut = <tfoot><tr><td colSpan = "2"><AddCat/></td></tr></tfoot>
+        }
+        return (
+            <div id = "cat_sub">
+            Edit Groups
+            <table>
+                <tbody>{this.state.data.map(function(child, index){
+                    return(
+                        <CatEBar name = {child.name} key = {index} tag = {index}/>
+                        )
+                })}
+                </tbody>
+                {plusBut}
+            </table>
+            </div>
+        )
+    }
+})
+
+CatEBar = React.createClass({
+    render: function() {
+        return (
+            <tr>
+                <CatEDelete {...this.props}/>
+                <CatEName {...this.props}/>
+            </tr>
+        );
+    }
+})
+
+CatEName = React.createClass({
+    handleChange: function(event) {
+        //this.props.tag bla bla bla
+        mainNode[this.props.tag].name = event.target.value;
+        N.saveAll();
+        N.push();
+    },
+    render: function() {
+        return (
+            <td>
+                <input maxLength = '14' value = {this.props.name} onChange = {this.handleChange}/>
+            </td>
+        )
+    },
+})
+
+CatEDelete = React.createClass({
+    handleClick: function() {
+        if (this.props.tag < STATUS.categ){
+            STATUS.categ--;
+        }
+        mainNode.splice(this.props.tag, 1);
+        if (mainNode.length < 1) {
+            mainNode.push({
+                name: "Group " + (mainNode.length + 1),
+                data: []
+            });
+        }
+        while (STATUS.categ >= mainNode.length && STATUS.categ >= 0) {
+            STATUS.categ--;
+        }
+
+        N.saveAll();
+        N.push();
+    },
+    render: function() {
+        return (
+            <td>
+            <div className = 'catEDelete' onClick={this.handleClick}></div>
+            </td>
+        );
+    }
+})
+
+AddCat = React.createClass({
+    handleClick: function(event) {
+        mainNode.push({
+            name: "Group " + (mainNode.length + 1),
+            data: []
+        });
+        N.saveAll();
+        N.push();
+    },
+    render: function() {
+        return (
+            <img id = "AddCat" onClick={this.handleClick} src = '..\img\plus.png'/>
         )
     }
 })

@@ -74,5 +74,8 @@ STATUS = {
     "categ": 1,
     "subpageId": -1,
     "subMode": false,
-    "settingsMode": false
+    "settingsMode": false,
+    "settings": {
+        "tasksNB": false
+    }
 };

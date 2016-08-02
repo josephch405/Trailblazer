@@ -80,8 +80,6 @@ setBaseOnclicks = function() {
 
     $('#reset_btn').click(checkoutNodes);
 
-    $('#arrowOut').click(backButton);
-
     $('#tutorial').click(openTutorial);
 
     $('#settings').click(openSettings);

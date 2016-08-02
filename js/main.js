@@ -16,26 +16,9 @@ require("./base.js");
 require("./tree.js");
 require("./task.js");
 require("./notebook.js");
+require("./settings.js");
 require("./save.js");
 require("./bgCanvas.js");
-
-//Adds new Trail to inputted array, using next avaiblable ID
-add_new_card = function(_array) {
-    var _id = N.nextId();
-    _array.push(N.create({ "name": "New Task", "id": _id }));
-    $(N.gen_card(_array[_array.length - 1])).insertBefore($("#add_card"));
-    N.setOnclick(_id);
-    N.saveAll();
-}
-
-//Adds new subTrail to inputted Trail, using next available sub ID
-sub_add_new_card = function(_node) {
-    var _id = N.nextChildId(_node.id);
-    _node.children.push(N.create({ "name": "New Task", "id": _id }));
-    $(N.gen_card(_node.children[_node.children.length - 1])).insertBefore($("#sub_add_card"));
-    N.setOnclick(_id);
-    N.saveAll();
-}
 
 //deletes card with ID/sub ID, then SAVES
 delete_card = function(_id) {
@@ -68,15 +51,6 @@ delete_card = function(_id) {
     return 1;
 }
 
-//expands Trail/subTrail to subpage, SAVES
-
-//opens settings subpage
-openSettings = function() {
-    greypage(true);
-    settingsPage(true);
-    STATUS.settingsMode = true;
-}
-
 //pushes nodeArray(input) to main board, attaches tooltips
 pushCategToBoard = function(_categ) {
     if (_categ != STATUS.categ) {
@@ -91,6 +65,20 @@ pushCategToBoard = function(_categ) {
     attachTooltips();
 }
 
+
+//opens settings subpage
+openSettings = function() {
+    greypage(true);
+    settingsPage(true);
+    STATUS.settingsMode = true;
+}
+
+openCat = function() {
+    greypage(true);
+    catPage(true);
+    STATUS.catMode = true;
+}
+
 expand_card = function(_id) {
     STATUS.subpageId = _id;
     greypage(true);
@@ -102,31 +90,16 @@ expand_card = function(_id) {
     return -1;
 }
 
-//used by expand_card, pushes input's children to HTML, attaches tooltips
-pushNodeToSub = function(_node) {
-    $("#cup_sub").html(subPlusCardText);
-    //while($("#cup_main").html != ""){}
-    console.log(_node);
-    var nodes = _node.children;
-    for (var i = 0; i < nodes.length; i++)
-        $(N.gen_card(nodes[i])).insertBefore($("#sub_add_card"));
-    N.setOnclick(_node);
-
-    $('#sub_add_card').click(function() {
-        sub_add_new_card(N.find(STATUS.subpageId));
-    });
-
-    attachTooltips();
-}
-
 //clears all subpage types and greypage, pushes categ according to STATUS, SAVES
 returnToMain = function() {
     greypage(false);
     subpage(false);
     settingsPage(false);
-    
+    catPage(false);
+
     STATUS.subMode = false;
     STATUS.settingsMode = false;
+    STATUS.catMode = false;
 
     N.push();
     N.saveAll();
@@ -173,6 +146,16 @@ settingsPage = function(_in) {
     }
 }
 
+catPage = function(_in) {
+    if (_in) {
+        $("#cat_sub_page").removeClass("hidden_top");
+        $("#cat_sub_page").addClass("hidden_top_reveal");
+    } else {
+        $("#cat_sub_page").removeClass("hidden_top_reveal");
+        $("#cat_sub_page").addClass("hidden_top");
+    }
+}
+
 /**
  * [resetDay description]
  * @return {[type]} [description]
@@ -181,41 +164,36 @@ checkoutNodes = function() {
     N.evalAll();
 }
 
-/**
- * [backButton description]
- * @return {[type]} [description]
- */
-backButton = function() {
-    var temp = STATUS.subpageId.toString().split("-");
-    if (temp.length <= 1)
-        returnToMain();
-    else
-        expand_card(temp.slice(0, -1).join("-"));
-}
-
-nodeArray = function(_categ) {
-    /*
-    if (typeof _id == 'number')
-        return N.findInArray(_id, mainNode[_categ]);*/
-    return mainNode[_categ];
-}
-
-updateCategBar = function() {
-    for (var i = 0; i < mainNode.length; i++) {
-        $("#prog_" + (i + 1)).css("width", (1 - N.categPercentage(i)) * 100 + "%");
+chrome.storage.local.get('versionStamp', function(result) {
+    if (result.versionStamp >= 1) {
+        loadProper();
+    } else {
+        N.render();
+        S.render();
+        N.saveAll();
     }
+});
+
+chrome.storage.local.set({ 'versionStamp': 1 });
+
+loadProper = function() {
+    chrome.storage.local.get('mainNode', function(result) {
+        N.loadAll(result.mainNode);
+        //N.render();
+        //conso
+        chrome.storage.local.get('STATUS', function(res) {
+            STATUS = res.STATUS;
+            N.render();
+            S.render();
+        });
+        //pushCategToBoard(STATUS.categ);
+    });
+
+    chrome.storage.local.get('taskData', function(result) {
+        T.loadAll(result.taskData);
+    });
 }
 
-chrome.storage.local.get('mainNode', function(result) {
-    N.loadAll(result.mainNode);
-    N.render();
-    //pushCategToBoard(STATUS.categ);
-    updateCategBar();
-});
-
-chrome.storage.local.get('taskData', function(result) {
-    T.loadAll(result.taskData);
-});
+$("#bar_bottom").tooltip(STYLE.tooltip);
 
 setBaseOnclicks();
-updateCategBar();

@@ -14,8 +14,8 @@ BGC = {
     },
     add: function() {
         BGC.points.push({
-            x: Math.random() * window.innerWidth * 2 - window.innerWidth/2,
-            y: Math.random() * window.innerHeight * 2 - window.innerHeight/2,
+            x: Math.random() * window.innerWidth*1.2  - window.innerWidth*.1,
+            y: Math.random() * window.innerHeight*1.2 - window.innerHeight*.1,
             vx: Math.random() * 2 - 1,
             vy: Math.random() * 2 - 1
         });
@@ -25,6 +25,14 @@ BGC = {
     },
     draw: function() {
         var numOfPoints = BGC.points.length;
+
+
+        
+        if (window.innerWidth != ctx.canvas.width || window.innerHeight != ctx.canvas.height) {
+            ctx.canvas.width = window.innerWidth;
+            ctx.canvas.height = window.innerHeight;
+        }
+
 
         ctx.fillStyle = "rgba(255,255,255, .9)";
         ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);

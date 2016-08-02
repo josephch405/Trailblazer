@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"text",
+				"text-align"
+			],
+			[
+				"crea",
+				"createClass"
+			],
+			[
+				"initia",
+				"getInitialState"
+			],
+			[
+				"arra",
+				"arrayD"
+			],
+			[
+				"cre",
+				"createClass"
+			],
+			[
+				"STA",
+				"STATUS.categ	(main.js)"
+			],
+			[
 				"backgor",
 				"background-color"
 			],
@@ -160,66 +184,18 @@
 	"buffers":
 	[
 		{
-			"file": "js/main.js",
+			"file": "html/tutorial.html",
 			"settings":
 			{
-				"buffer_size": 6301,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/bgCanvas.js",
-			"settings":
-			{
-				"buffer_size": 2254,
+				"buffer_size": 300,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "js/tree.js",
+			"file": "css/tutorial.css",
 			"settings":
 			{
-				"buffer_size": 12072,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "html/main.html",
-			"settings":
-			{
-				"buffer_size": 2454,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/base.js",
-			"settings":
-			{
-				"buffer_size": 3112,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/params.js",
-			"settings":
-			{
-				"buffer_size": 1482,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "sass/main.scss",
-			"settings":
-			{
-				"buffer_size": 7320,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "js/background.js",
-			"settings":
-			{
-				"buffer_size": 378,
+				"buffer_size": 1226,
 				"line_ending": "Windows"
 			}
 		}
@@ -263,16 +239,20 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 400.0,
-		"last_filter": "packa",
+		"height": 344.0,
+		"last_filter": "insta",
 		"selected_items":
 		[
 			[
-				"packa",
+				"insta",
 				"Package Control: Install Package"
 			],
 			[
-				"insta",
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
 				"Package Control: Install Package"
 			],
 			[
@@ -286,10 +266,6 @@
 			[
 				"npm",
 				"npm: Install Package"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"view",
@@ -342,34 +318,42 @@
 	"expanded_folders":
 	[
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/css",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/html",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/sass"
 	],
 	"file_history":
 	[
-		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/bgCanvas",
-		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/css/main.css",
-		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/scrum",
-		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/sass/main.scss",
-		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/manifest.json",
-		"/C/Users/Joseph Chuang/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/html/main.html",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/task.js",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/sass/main.scss",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/tree.js",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/settings.js",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/main.js",
-		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/base.js",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/bgCanvas.js",
+		"/C/Users/Joseph Chuang/Desktop/bgTest/bgc.js",
+		"/C/Users/Joseph Chuang/Desktop/Swiper demo.html",
+		"/C/Users/Joseph Chuang/Desktop/Swiper demo_files/swiper.min.js",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/params.js",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/base.js",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/background.js",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/css/main.css",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/save.js",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/notebook.js",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/bundle.js",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/manifest.json",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/bgCanvas",
+		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/scrum",
+		"/C/Users/Joseph Chuang/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
 		"/C/Users/Joseph Chuang/AppData/Roaming/Sublime Text 3/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Habivator/js/main.js",
-		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/save.js",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Habivator/js/background.js",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Habivator/js/settings.js",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Habivator/js/options.js",
 		"/C/Users/Joseph Chuang/AppData/Local/Google/Chrome/User Data/Default/Extensions/bgedjdgagndeglpacdndipmhhgboeehl/0.4.1_0/manifest.json",
-		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/html/main.html",
 		"/C/Users/Joseph Chuang/AppData/Roaming/Sublime Text 3/Packages/ColorPicker/ColorPicker.sublime-settings",
 		"/C/Users/Joseph Chuang/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/js/background.js",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/sass/_fonts.scss",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/html/tutorial.html",
 		"/C/Users/Joseph Chuang/Google Drive/Code/Trailblazer/trailblazer.sublime-project",
@@ -468,14 +452,7 @@
 		"/C/xampp/htdocs/Parts.php",
 		"/C/xampp/htdocs/project.php",
 		"/C/xampp/htdocs/human_practice.php",
-		"/C/xampp/htdocs/collaborations.php",
-		"/C/xampp/htdocs/notebook.php",
-		"/C/xampp/htdocs/achievements.php",
-		"/C/xampp/htdocs/compiled.css",
-		"/C/xampp/htdocs/navigation.php",
-		"/C/xampp/htdocs/team.php",
-		"/C/xampp/htdocs/design.php",
-		"/C/xampp/htdocs/project_overview.php"
+		"/C/xampp/htdocs/collaborations.php"
 	],
 	"find":
 	{
@@ -486,6 +463,7 @@
 		"height": 100.0,
 		"where_history":
 		[
+			"C:\\Users\\Joseph Chuang\\Google Drive\\Code\\Trailblazer\\js",
 			"C:\\Users\\Joseph Chuang\\Google Drive\\Code\\Trailblazer",
 			"C:\\Users\\Joseph Chuang\\Google Drive\\Code\\Trailblazer\\js",
 			"C:\\Users\\Joseph Chuang\\Google Drive\\Code\\Trailblazer",
@@ -507,6 +485,125 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"leaf",
+			"bgcan",
+			"render",
+			"mainNode",
+			"export",
+			"save",
+			"attachTo",
+			"push",
+			"settings_sub",
+			"display: non",
+			"function()",
+			"settings_s",
+			"saveall",
+			"settings",
+			"save",
+			"bar_right",
+			"setting",
+			"tooltips",
+			"cat_s",
+			"ref",
+			"sub_page",
+			"setting",
+			"cup_main",
+			"attachtool",
+			"console.log",
+			"updateCategbar",
+			"updateCa",
+			"categE",
+			"updatecateg",
+			"updatecat",
+			"mainNode",
+			"update",
+			"console.",
+			"arrayD",
+			"render",
+			"console",
+			"mainNode",
+			"arrayD",
+			"arrayN",
+			"mainNode",
+			"loadCateg",
+			"data",
+			"nodeArray",
+			"mainNode",
+			"categ_",
+			"updateCategBar",
+			"backbutton",
+			"pushcategtoboard",
+			"pushcategto",
+			"title",
+			"add_new_card",
+			"pushNodeToSub",
+			"setOnclick",
+			"loadCateg",
+			"push",
+			"input",
+			"subpage",
+			"n.push",
+			"console.log",
+			"pushmain",
+			"pushMain",
+			"treemain",
+			"expand_c",
+			"returnToMain",
+			"expand_card",
+			"backbutton",
+			"arrow",
+			"pushMainH",
+			"pushMain",
+			"add_new",
+			"submode",
+			"setbaseo",
+			"refresh_card",
+			"expand_card",
+			"pushNodeToSub",
+			"delete_card",
+			".box",
+			"switchcateg",
+			"switchca",
+			"switchCateg",
+			"pushcategto",
+			"push",
+			"pushCategToBoa",
+			"pushmain",
+			"update",
+			"tooltip",
+			"tool",
+			"attachTool",
+			"title",
+			"updateCategBar",
+			"pushCate",
+			"leafbot",
+			"box",
+			"card",
+			"plus.png",
+			"plus.",
+			"plus.png",
+			"add_card",
+			"plus.png",
+			"add_",
+			"add_card",
+			"add_",
+			"add_card",
+			"map",
+			"task",
+			"map",
+			"render",
+			"leafbottom",
+			"top_",
+			"top",
+			"bar_top",
+			"cup_sub_title",
+			"cup_sub",
+			"bar",
+			"border",
+			"top",
+			"bar_top",
+			"maxP",
+			"clampn",
 			"bgc",
 			"bgm",
 			"cup_main",
@@ -515,126 +612,7 @@
 			"backgr",
 			"body",
 			"main",
-			"card",
-			"main_pa",
-			"add_card",
-			"hover",
-			"border",
-			"card_t",
-			"bottom",
-			"setting",
-			"bar_top",
-			"slide",
-			"top",
-			"bar",
-			"sub_page",
-			"z-index",
-			"setting",
-			"settings",
-			"status",
-			"settings",
-			"greyPage",
-			"cup_sub",
-			"cup_inner",
-			"cup",
-			"tutorial",
-			"import",
-			"importtx",
-			"json",
-			"j",
-			"json",
-			"card",
-			"bottom",
-			"up",
-			"cup_main_pa",
-			"background-co",
-			"img",
-			"slideRight",
-			"left",
-			"taskList",
-			"hover",
-			"pushNode",
-			"subpage",
-			"console.log",
-			"expand",
-			"click",
-			"expand",
-			"expand_card",
-			"expand",
-			"expand_card",
-			"updateCateg",
-			"’",
-			"you",
-			"transform",
-			"saveall",
-			"length",
-			"bob",
-			"status",
-			"submode",
-			"subMode",
-			"class",
-			"flip_check",
-			"top",
-			"input",
-			"addtask",
-			"class",
-			"reactdom.r",
-			"reactdom",
-			"input",
-			"expand_",
-			"subpage",
-			"pushNodeTo",
-			"expand_card",
-			"cup_sub_title",
-			"console",
-			"input",
-			"background",
-			"ont-size",
-			"gen_boxes",
-			"setBaseOnclicks",
-			"resetday",
-			"reset",
-			"push",
-			"refresh_",
-			"findnode",
-			"margin",
-			"importa",
-			"greypage",
-			"import_card",
-			"createChild",
-			"input",
-			"updateName",
-			"name",
-			"note",
-			"cup_sub",
-			"load",
-			"import_c",
-			"load",
-			"tr",
-			"load",
-			"storage",
-			"treenode",
-			"findno",
-			"dataonly",
-			"setup",
-			"TreeNode",
-			"setup",
-			"treenode",
-			"this",
-			"layer",
-			"reset",
-			"parentid",
-			"set",
-			"nextId",
-			"set_name",
-			"Node",
-			"set_name",
-			"flip_check",
-			"refresh",
-			"setonclick",
-			"gen_card",
-			"addToChildren",
-			"createChild"
+			"card"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -642,6 +620,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"() =>",
+			"pushCategToBoard",
 			"N.updateName",
 			"N.nextId",
 			"N.loadAll",
@@ -702,247 +682,71 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "js/main.js",
+					"file": "html/tutorial.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6301,
+						"buffer_size": 300,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								415,
-								418
+								291,
+								291
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "js/bgCanvas.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2254,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								370,
-								370
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 39.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "js/tree.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12072,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 90.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "html/main.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2454,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2305,
-								2265
-							]
-						],
-						"settings":
-						{
+							"bs_sintax": "html",
+							"buffer_scroll_name": "3e1d3a1e",
 							"syntax": "Packages/HTML/HTML.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 442.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "js/base.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3112,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3112,
-								3028
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1372.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "js/params.js",
+					"buffer": 1,
+					"file": "css/tutorial.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1482,
+						"buffer_size": 1226,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1439,
-								1439
+								1147,
+								1147
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"bs_sintax": "css",
+							"buffer_scroll_name": "9b3187b5",
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 585.0,
+						"translation.y": 897.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "sass/main.scss",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7320,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2602,
-								2602
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2047.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "js/background.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 378,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								341,
-								341
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -981,7 +785,7 @@
 		"cols":
 		[
 			0.0,
-			0.869352488425,
+			0.477012062893,
 			1.0
 		],
 		"rows":
@@ -1017,32 +821,80 @@
 		"selected_items":
 		[
 			[
-				"back",
-				"js\\background.js"
-			],
-			[
 				"tree",
 				"js\\tree.js"
 			],
 			[
-				"bgc",
-				"js\\bgCanvas"
+				"canv",
+				"js\\bgCanvas.js"
+			],
+			[
+				"tas",
+				"js\\task.js"
+			],
+			[
+				"main",
+				"js\\main.js"
 			],
 			[
 				"para",
 				"js\\params.js"
 			],
 			[
+				"bas",
+				"js\\base.js"
+			],
+			[
 				"scss",
 				"sass\\main.scss"
 			],
 			[
-				"main.css",
+				"main.",
 				"css\\main.css"
 			],
 			[
-				"main",
+				"task.j",
+				"js\\task.js"
+			],
+			[
+				"param",
+				"js\\params.js"
+			],
+			[
+				"main.js",
 				"js\\main.js"
+			],
+			[
+				"main.ht",
+				"html\\main.html"
+			],
+			[
+				".css",
+				"css\\main.css"
+			],
+			[
+				"tree.",
+				"js\\tree.js"
+			],
+			[
+				"backgroud",
+				"js\\background.js"
+			],
+			[
+				".json",
+				"manifest.json"
+			],
+			[
+				"back",
+				"js\\background.js"
+			],
+			[
+				"bgc",
+				"js\\bgCanvas"
+			],
+			[
+				"main.css",
+				"css\\main.css"
 			],
 			[
 				"mani",
@@ -1079,14 +931,6 @@
 			[
 				"base",
 				"js\\base.js"
-			],
-			[
-				"main.js",
-				"js\\main.js"
-			],
-			[
-				"param",
-				"js\\params.js"
 			],
 			[
 				"home",
@@ -1487,18 +1331,6 @@
 			[
 				"les",
 				"homepage.less"
-			],
-			[
-				".less",
-				"homepage.less"
-			],
-			[
-				"project_over",
-				"project_overview.php"
-			],
-			[
-				"head.php",
-				"head.php"
 			]
 		],
 		"width": 0.0

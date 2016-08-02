@@ -24,6 +24,7 @@ div input,
 #cup_sub_page,
 #cup_main_page,
 #settings_sub_page,
+#cat_sub_page,
 #bgCanvas,
 .bar {
   position: absolute;
@@ -34,7 +35,8 @@ div input,
 
 #bgCanvas {
   z-index: 0;
-  background-color: #232323; }
+  width: 100%;
+  height: 100%; }
 
 .inline {
   display: inline-block;
@@ -131,6 +133,16 @@ div input,
   z-index: 4;
   -webkit-transition: all .2s ease-in-out; }
 
+#cat_sub_page {
+  width: 30vw;
+  height: 86vh;
+  left: 35vw;
+  top: 5vh;
+  background: #FFFFFF;
+  box-shadow: 0 0 10px 0 #000000;
+  z-index: 4;
+  -webkit-transition: all .2s ease-in-out; }
+
 #cup_main {
   width: 96%;
   height: 70%;
@@ -167,10 +179,8 @@ div input,
   z-index: 3; }
 
 .fade {
-  display: block;
   transform: translateZ(0);
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
   -webkit-transform: translateZ(0);
   -webkit-backface-visibility: hidden;
   -webkit-transition-duration: 0.1s;
@@ -220,20 +230,21 @@ div input,
   text-align: center; }
 
 #bar_bottom {
-  width: 60%;
+  width: 6%;
   height: 70%;
   bottom: -60%;
-  left: 20%;
-  background-color: #4E4E4E;
+  left: 47%;
+  background-color: rgba(255, 255, 255, 0.8);
   z-index: 2;
   padding-top: .5%; }
   #bar_bottom:hover {
-    background-color: #6F6F6F; }
+    background-color: white; }
   #bar_bottom #reset_btn {
     -webkit-filter: drop-shadow(0 0 4px #222);
     height: 8vh; }
 
 #bar_left {
+  display: none;
   width: 30%;
   height: 70%;
   left: -27%;
@@ -242,6 +253,7 @@ div input,
   background-color: #FFFFFF; }
 
 #bar_right {
+  display: none;
   width: 30%;
   height: 70%;
   right: -27%;
@@ -343,8 +355,9 @@ div input,
   bottom: 0px;
   padding: 10px;
   font-size: 2vh;
-  background-color: #4E4E4E;
-  color: white; }
+  background-color: #FFFFFF;
+  color: #000000;
+  box-shadow: 0 0 .5vh 0 black; }
 
 #settings {
   position: fixed;
@@ -352,9 +365,9 @@ div input,
   bottom: 0px;
   padding: 10px;
   font-size: 2vh;
-  background-color: #4E4E4E;
-  color: white;
-  z-index: 3; }
+  background-color: #FFFFFF;
+  color: #000000;
+  box-shadow: 0 0 .5vh 0 black; }
 
 #sub_checkDiv {
   top: 2vh;
@@ -377,8 +390,8 @@ div input,
   outline: none; }
 
 .card_ctrl {
-  width: 4%;
-  left: 96%;
+  width: 5%;
+  right: 0;
   border-left: solid 1px #A3A3A3; }
 
 .card_b {
@@ -422,5 +435,55 @@ div input,
 
 .childlessBoxTag {
   height: 100% !important; }
+
+#cat_sub {
+  padding: 1vw 3vw 1vw 3vw;
+  font-size: 6vh;
+  line-height: 200%; }
+  #cat_sub * {
+    position: static; }
+  #cat_sub td {
+    border-bottom: 1vh solid white; }
+  #cat_sub input {
+    border: none;
+    outline: none;
+    height: 4vh;
+    width: 20vw;
+    font-size: 4vh; }
+  #cat_sub .catEDelete {
+    background-color: #FF0000;
+    width: 4vh;
+    height: 4vh; }
+    #cat_sub .catEDelete:hover {
+      background-color: #FF6868; }
+  #cat_sub #AddCat {
+    height: 6vh; }
+  #cat_sub tfoot td {
+    text-align: center; }
+
+#settings_sub {
+  padding: 4vh; }
+  #settings_sub * {
+    position: static;
+    font-size: 2vh;
+    width: auto;
+    height: auto;
+    display: inline-block;
+    font-size: 3vh; }
+  #settings_sub .onNow {
+    background-color: #000000;
+    color: #FFFFFF; }
+  #settings_sub .offNow {
+    background-color: #FFFFFF;
+    color: #000000; }
+    #settings_sub .offNow:hover {
+      background-color: #C7C7C7; }
+  #settings_sub .settingsB {
+    width: 6vw;
+    height: 6vh;
+    padding: 1vh;
+    margin: 2vh;
+    text-align: center;
+    box-shadow: 0 0 .5vh 0 black; }
 
 /*# sourceMappingURL=main.css.map */
