@@ -494,6 +494,7 @@ loadProper = function () {
         //conso
         chrome.storage.local.get('STATUS', function (res) {
             STATUS = res.STATUS;
+            STATUS.subMode = false;
             N.render();
             S.render();
         });
