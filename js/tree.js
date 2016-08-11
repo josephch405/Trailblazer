@@ -109,12 +109,25 @@ N = {
         return mainNode[_categ].name;
     },
     categPercentage: function(index) {
-        var counter = 0;
-        for (var i in N.arrayD(index))
-            counter += N.arrayD(index)[i].checked ? 1 : 0;
+        var c = 0;
+        for (var i in N.arrayD(index)){
+            c += N.completion(N.arrayD(index)[i]);
+        }
         if (N.arrayD(index).length == 0)
             return 1;
-        return counter / N.arrayD(index).length;
+        return c / N.arrayD(index).length;
+    },
+    completion: function(_node){
+        _node = N.find(_node);
+        var c = 0;
+        if (_node.checked)
+            c = .5;
+        if (_node.children.length == 0)
+            c *= 2;
+        else 
+            for (var i in _node.children)
+                c += N.completion(_node.children[i]) / (2*_node.children.length);
+        return c;
     },
     /**
      * Uses loadCateg to load all three categories
